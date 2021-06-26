@@ -9,8 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        TabView {
+            PokemonsView()
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("List of Pokemons")
+                }
+            Text("This are your favorites Pokemons")
+                .tabItem {
+                    Image(systemName: "heart.fill")
+                    Text("Favorites")
+                }
+        }
+        .accentColor(.red)
     }
 }
 
