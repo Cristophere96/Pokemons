@@ -41,11 +41,7 @@ struct Move: Decodable {
 }
 
 struct Sprites: Decodable {
-    let url: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case url = "front_default"
-    }
+    let front_default: String
 }
 
 struct TypeElement: Decodable {
