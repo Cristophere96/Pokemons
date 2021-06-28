@@ -12,8 +12,8 @@ struct PokemonDetail: View {
     let pokemon: Pokemon
     let viewModel: PokemonViewModel
     let color: Color
-    let pokemonWeight: Int
-    let pokemonHeight: Int
+    let pokemonWeight: String
+    let pokemonHeight: String
     
     init(pokemon: Pokemon, viewModel: PokemonViewModel) {
         self.pokemon = pokemon
@@ -26,7 +26,7 @@ struct PokemonDetail: View {
     var body: some View {
         ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
             VStack(alignment: .center, spacing: 20) {
-                KFImage(URL(string: pokemon.sprites.url))
+                KFImage(URL(string: pokemon.sprites.front_default))
                     .frame(width: 68, height: 68)
                     .padding([.bottom, .trailing], 4)
                 

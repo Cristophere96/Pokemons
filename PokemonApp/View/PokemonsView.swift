@@ -9,21 +9,27 @@ import SwiftUI
 
 struct PokemonsView: View {
     private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
-    @ObservedObject var viewModel = PokemonViewModel(limit: 151, offset: 0)
+    @ObservedObject var viewModel: PokemonViewModel
+    let limit: Int
+    let offset: Int
+    
+    init(limit: Int, offset: Int) {
+        self.limit = limit
+        self.offset = offset
+        self.viewModel = PokemonViewModel(limit: limit, offset: offset)
+    }
     
     var body: some View {
         ZStack {
-            NavigationView {
-                ScrollView {
-                    LazyVGrid(columns: gridItems, spacing: 16 ) {
-                        ForEach(viewModel.pokemons) { pokemon in
-                            PokemonCell(pokemon: pokemon, viewModel: viewModel)
-                        }
+            ScrollView {
+                LazyVGrid(columns: gridItems, spacing: 16 ) {
+                    ForEach(viewModel.pokemons) { pokemon in
+                        PokemonCell(pokemon: pokemon, viewModel: viewModel)
                     }
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 6)
-                    .navigationTitle("Pokedex")
                 }
+                .padding(.horizontal, 6)
+                .padding(.vertical, 6)
+                .navigationTitle("Pokedex")
             }
             if viewModel.isLoading {
                 LoadingView()
@@ -34,6 +40,6 @@ struct PokemonsView: View {
 
 struct PokemonsView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonsView()
+        PokemonsView(limit: 151, offset: 0)
     }
 }

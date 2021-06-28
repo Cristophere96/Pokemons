@@ -65,7 +65,8 @@ class PokemonViewModel: ObservableObject {
         }
     }
     
-    func parseWeigthAndHeigth(forValue value: Int) -> Int {
-        return value / 10
+    func parseWeigthAndHeigth(forValue value: Int) -> String {
+        let result = Double(value).rounded() / 10.0
+        return String(format: "%.2f", result)
     }
 }
