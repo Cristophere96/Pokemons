@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		802F614D268A9FB900B066E5 /* PokemonVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F614C268A9FB900B066E5 /* PokemonVotingView.swift */; };
+		802F614F268AA83800B066E5 /* PokemonVotingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F614E268AA83800B066E5 /* PokemonVotingViewModel.swift */; };
 		80633315268797B400ABB5A8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 80633314268797B400ABB5A8 /* Kingfisher */; };
 		806333172687AB4C00ABB5A8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806333162687AB4C00ABB5A8 /* LoadingView.swift */; };
 		8071DC1E2688D29B007FCF2B /* GenerationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071DC1D2688D29B007FCF2B /* GenerationsView.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		802F614C268A9FB900B066E5 /* PokemonVotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonVotingView.swift; sourceTree = "<group>"; };
+		802F614E268AA83800B066E5 /* PokemonVotingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonVotingViewModel.swift; sourceTree = "<group>"; };
 		806333162687AB4C00ABB5A8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8071DC1D2688D29B007FCF2B /* GenerationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationsView.swift; sourceTree = "<group>"; };
 		8071DC1F2688DCCF007FCF2B /* GenerationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationCell.swift; sourceTree = "<group>"; };
@@ -90,6 +94,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		802F6149268A9F0F00B066E5 /* Pokemons */ = {
+			isa = PBXGroup;
+			children = (
+				80BFD7012687C74900DC14A1 /* PokemonDetail.swift */,
+				80B92A162686BF7000C9EFF5 /* PokemonCell.swift */,
+				80B92A182686C36500C9EFF5 /* PokemonsView.swift */,
+			);
+			path = Pokemons;
+			sourceTree = "<group>";
+		};
+		802F614A268A9F2D00B066E5 /* Generations */ = {
+			isa = PBXGroup;
+			children = (
+				8071DC1D2688D29B007FCF2B /* GenerationsView.swift */,
+				8071DC1F2688DCCF007FCF2B /* GenerationCell.swift */,
+			);
+			path = Generations;
+			sourceTree = "<group>";
+		};
+		802F614B268A9F8B00B066E5 /* VotingSystem */ = {
+			isa = PBXGroup;
+			children = (
+				802F614C268A9FB900B066E5 /* PokemonVotingView.swift */,
+			);
+			path = VotingSystem;
+			sourceTree = "<group>";
+		};
 		80B929DC2686BEE400C9EFF5 = {
 			isa = PBXGroup;
 			children = (
@@ -162,12 +193,10 @@
 		80B92A142686BF0B00C9EFF5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				80B92A162686BF7000C9EFF5 /* PokemonCell.swift */,
-				80B92A182686C36500C9EFF5 /* PokemonsView.swift */,
+				802F614B268A9F8B00B066E5 /* VotingSystem */,
+				802F614A268A9F2D00B066E5 /* Generations */,
+				802F6149268A9F0F00B066E5 /* Pokemons */,
 				806333162687AB4C00ABB5A8 /* LoadingView.swift */,
-				80BFD7012687C74900DC14A1 /* PokemonDetail.swift */,
-				8071DC1D2688D29B007FCF2B /* GenerationsView.swift */,
-				8071DC1F2688DCCF007FCF2B /* GenerationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -176,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				80B92A1C2686CD0100C9EFF5 /* PokemonViewModel.swift */,
+				802F614E268AA83800B066E5 /* PokemonVotingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -325,6 +355,8 @@
 				806333172687AB4C00ABB5A8 /* LoadingView.swift in Sources */,
 				80B92A172686BF7000C9EFF5 /* PokemonCell.swift in Sources */,
 				8071DC202688DCCF007FCF2B /* GenerationCell.swift in Sources */,
+				802F614D268A9FB900B066E5 /* PokemonVotingView.swift in Sources */,
+				802F614F268AA83800B066E5 /* PokemonVotingViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,7 +526,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cristopherE.PokemonApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -516,7 +548,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cristopherE.PokemonApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

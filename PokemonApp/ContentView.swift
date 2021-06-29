@@ -15,6 +15,13 @@ struct ContentView: View {
                     Image(systemName: "list.bullet")
                     Text("Generations")
                 }
+            
+            PokemonVotingView()
+                .tabItem {
+                    Image(systemName: "hand.thumbsup.fill")
+                    Text("Vote for a Pokemon")
+                }
+            
             Text("This are your favorites Pokemons")
                 .tabItem {
                     Image(systemName: "heart.fill")
