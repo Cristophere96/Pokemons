@@ -30,16 +30,28 @@ class PokemonsVotedViewModel: ObservableObject {
             self.empty = true
         } else {
             self.isLoading = true
-            for pokemon in pokemonsVoted {
-                guard let jsonURL = pokemon.url else { return }
+            for pokemonVoted in pokemonsVoted {
+                guard let jsonURL = pokemonVoted.url else { return }
                 guard let newURL = URL(string: jsonURL) else { return }
                 
                 URLSession.shared.dataTask(with: newURL) { data, response, error in
                     guard let data = data else { return }
                     guard let result = try? JSONDecoder().decode(Pokemon.self, from: data) else { return }
+                    var exist: Bool = false
                     
-                    DispatchQueue.main.async {
-                        self.pokemons.append(result)
+                    for pokemon in self.pokemons {
+                        if pokemon.id == result.id {
+                            exist = true
+                        }
+                    }
+                    
+                    if !exist {
+                        DispatchQueue.main.async {
+                            self.pokemons.append(result)
+                            self.pokemons.sort {
+                                $0.id < $1.id
+                            }
+                        }
                     }
                 }.resume()
             }

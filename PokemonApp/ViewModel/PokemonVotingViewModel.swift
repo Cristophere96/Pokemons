@@ -41,7 +41,7 @@ class PokemonVotingViewModel: ObservableObject {
         }.resume()
     }
     
-    func savePokemon(type: String) {
+    func saveToCoreData(type: String) {
         let new = PokemonsVoted(context: self.viewContext)
         new.url = self.baseUrl
         new.voteType = type
@@ -51,6 +51,27 @@ class PokemonVotingViewModel: ObservableObject {
             fetchSinglePokemon()
         } catch {
             print("Unresolved error: \(error)")
+        }
+    }
+    
+    func savePokemon(type: String) {
+        let pokemonsVoted: [PokemonsVoted] = PersistenceController.shared.getAllPokemonsVoted()
+        
+        if pokemonsVoted.count == 0 {
+            saveToCoreData(type: type)
+        } else {
+            var exist: Bool = false
+            for item in pokemonsVoted {
+                if item.url == self.baseUrl {
+                   exist = true
+                }
+            }
+            
+            if exist {
+                fetchSinglePokemon()
+            } else {
+                saveToCoreData(type: type)
+            }
         }
     }
     

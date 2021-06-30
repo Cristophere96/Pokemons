@@ -34,6 +34,15 @@ struct PokemonsVotedView: View {
                 }
             }
         }
+        .onAppear(){
+            viewModel.getAllPokemonsVoted()
+            viewModel.fetchPokemons()
+        }
+    }
+    
+    enum VotedType: String, CaseIterable {
+        case LIKED = "Liked"
+        case DISLIKED = "Disliked"
     }
 }
 
