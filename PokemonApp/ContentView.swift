@@ -22,7 +22,7 @@ struct ContentView: View {
                     Text("Vote for a Pokemon")
                 }
             
-            Text("This are your favorites Pokemons")
+            PokemonsVotedView()
                 .tabItem {
                     Image(systemName: "heart.fill")
                     Text("Favorites")

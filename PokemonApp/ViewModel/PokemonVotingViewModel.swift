@@ -8,6 +8,8 @@
 import SwiftUI
 
 class PokemonVotingViewModel: ObservableObject {
+    private var viewContext = PersistenceController.shared.viewContext
+    
     @Published var pokemon = [Pokemon]()
     @Published var isLoading: Bool = false
     var baseUrl: String = ""
@@ -39,12 +41,25 @@ class PokemonVotingViewModel: ObservableObject {
         }.resume()
     }
     
+    func savePokemon(type: String) {
+        let new = PokemonsVoted(context: self.viewContext)
+        new.url = self.baseUrl
+        new.voteType = type
+        
+        do {
+            try self.viewContext.save()
+            fetchSinglePokemon()
+        } catch {
+            print("Unresolved error: \(error)")
+        }
+    }
+    
     func likePokemon() {
-        fetchSinglePokemon()
+        savePokemon(type: "LIKE")
     }
     
     func dislikePokemon() {
-        fetchSinglePokemon()
+        savePokemon(type: "DISLIKE")
     }
     
     func backgroundColor(forType type: String) -> UIColor {
