@@ -14,23 +14,19 @@ struct PokemonsVotedView: View {
     
     var body: some View {
         NavigationView {
-            if viewModel.empty {
-                Text("You haven't voted for a Pokemon")
-            } else {
-                ZStack {
-                    ScrollView {
-                        LazyVGrid(columns: gridItems, spacing: 16 ) {
-                            ForEach(viewModel.pokemons, id: \.id) { pokemon in
-                                PokemonVotedCell(pokemon: pokemon, viewModel: viewModel)
-                            }
+            ZStack {
+                ScrollView {
+                    LazyVGrid(columns: gridItems, spacing: 16 ) {
+                        ForEach(viewModel.pokemons, id: \.id) { pokemon in
+                            PokemonVotedCell(pokemon: pokemon, viewModel: viewModel)
                         }
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 6)
-                        .navigationTitle("Pokemons you voted")
                     }
-                    if viewModel.isLoading {
-                        LoadingView()
-                    }
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 6)
+                    .navigationTitle("Pokemons you voted")
+                }
+                if viewModel.isLoading {
+                    LoadingView()
                 }
             }
         }
