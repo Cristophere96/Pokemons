@@ -35,11 +35,6 @@ struct PokemonsVotedView: View {
             viewModel.fetchPokemons()
         }
     }
-    
-    enum VotedType: String, CaseIterable {
-        case LIKED = "Liked"
-        case DISLIKED = "Disliked"
-    }
 }
 
 struct PokemonsVotedView_Previews: PreviewProvider {
