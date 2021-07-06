@@ -22,6 +22,14 @@ struct GenerationsView: View {
                         GenerationCell(title: "Generation 3", image: "third_gen", limit: 135, offset: 251)
                         
                         GenerationCell(title: "Generation 4", image: "fourth_gen", limit: 107, offset: 386)
+                        
+                        GenerationCell(title: "Generation 5", image: "fifth_gen", limit: 156, offset: 493)
+                        
+                        GenerationCell(title: "Generation 6", image: "sixth_gen", limit: 72, offset: 649)
+                        
+                        GenerationCell(title: "Generation 7", image: "seventh_gen", limit: 81, offset: 721)
+                        
+                        GenerationCell(title: "Generation 8", image: "eighth_gen", limit: 83, offset: 809)
                     }
                     .padding(.horizontal, 6)
                     .padding(.vertical, 6)

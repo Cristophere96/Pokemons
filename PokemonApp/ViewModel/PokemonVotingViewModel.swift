@@ -19,7 +19,7 @@ class PokemonVotingViewModel: ObservableObject {
     }
     
     func generateRandomPokemonURL() {
-        let number = Int.random(in: 1..<387)
+        let number = Int.random(in: 1..<894)
         
         self.baseUrl = "https://pokeapi.co/api/v2/pokemon/\(number)"
     }

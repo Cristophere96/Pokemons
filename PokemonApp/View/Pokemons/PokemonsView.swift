@@ -12,10 +12,12 @@ struct PokemonsView: View {
     @ObservedObject var viewModel: PokemonViewModel
     let limit: Int
     let offset: Int
+    let title: String
     
-    init(limit: Int, offset: Int) {
+    init(limit: Int, offset: Int, title: String) {
         self.limit = limit
         self.offset = offset
+        self.title = title
         self.viewModel = PokemonViewModel(limit: limit, offset: offset)
     }
     
@@ -29,7 +31,7 @@ struct PokemonsView: View {
                 }
                 .padding(.horizontal, 6)
                 .padding(.vertical, 6)
-                .navigationTitle("Pokedex")
+                .navigationTitle(title)
             }
             if viewModel.isLoading {
                 LoadingView()
@@ -40,6 +42,6 @@ struct PokemonsView: View {
 
 struct PokemonsView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonsView(limit: 151, offset: 0)
+        PokemonsView(limit: 151, offset: 0, title: "Generation 1")
     }
 }

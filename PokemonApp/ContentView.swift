@@ -18,14 +18,14 @@ struct ContentView: View {
             
             PokemonVotingView()
                 .tabItem {
-                    Image(systemName: "hand.thumbsup.fill")
+                    Image(systemName: "flame.fill")
                     Text("Vote for a Pokemon")
                 }
             
             PokemonsVotedView()
                 .tabItem {
-                    Image(systemName: "heart.fill")
-                    Text("Favorites")
+                    Image(systemName: "star.fill")
+                    Text("Pokemons voted")
                 }
         }
         .accentColor(.red)

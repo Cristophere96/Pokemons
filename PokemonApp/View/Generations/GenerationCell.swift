@@ -16,7 +16,7 @@ struct GenerationCell: View {
     var body: some View {
         ZStack {
             NavigationLink(
-                destination: PokemonsView(limit: limit, offset: offset),
+                destination: PokemonsView(limit: limit, offset: offset, title: title),
                 label: {
                     ZStack {
                         VStack {
