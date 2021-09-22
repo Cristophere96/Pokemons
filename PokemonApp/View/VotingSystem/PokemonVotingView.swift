@@ -26,7 +26,7 @@ struct PokemonVotingView: View {
                             
                             Text(pokemon.name.capitalized)
                                 .font(.largeTitle)
-                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                .fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .padding(.vertical, 20)
                                 .padding(.leading)
@@ -44,11 +44,11 @@ struct PokemonVotingView: View {
                             .padding(.bottom, 20)
                         }
                     }
-                    .background(Color(viewModel.backgroundColor(forType: pokemon.types[0].type.name)))
+                    .background(Color(Utils.backgroundColor(forType: pokemon.types[0].type.name)))
                     .cornerRadius(12)
-                    .shadow(color: Color(viewModel.backgroundColor(forType: pokemon.types[0].type.name)), radius: 6, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+                    .shadow(color: Color(Utils.backgroundColor(forType: pokemon.types[0].type.name)), radius: 6, x: 0.0, y: 0.0)
                     
-                    HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 80) {
+                    HStack(alignment: .center, spacing: 80) {
                         Button(action: {
                             viewModel.dislikePokemon()
                         }) {
@@ -56,8 +56,8 @@ struct PokemonVotingView: View {
                                 .frame(width: 50, height: 50)
                                 .foregroundColor(.red)
                                 .background(Color(UIColor.systemBackground))
-                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                                .shadow(color: Color(.systemGray), radius: 6, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+                                .clipShape(Circle())
+                                .shadow(color: Color(.systemGray), radius: 6, x: 0.0, y: 0.0)
                         }
                         
                         Button(action: {
@@ -67,8 +67,8 @@ struct PokemonVotingView: View {
                                 .frame(width: 50, height: 50)
                                 .foregroundColor(.red)
                                 .background(Color(UIColor.systemBackground))
-                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                                .shadow(color: Color(.systemGray), radius: 6, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+                                .clipShape(Circle())
+                                .shadow(color: Color(.systemGray), radius: 6, x: 0.0, y: 0.0)
                         }
                     }
                     .padding(.top, 30)

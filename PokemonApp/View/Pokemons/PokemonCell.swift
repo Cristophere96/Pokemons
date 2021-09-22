@@ -10,19 +10,17 @@ import Kingfisher
 
 struct PokemonCell: View {
     let pokemon: Pokemon
-    let viewModel: PokemonViewModel
     let backgroundColor: Color
     
-    init(pokemon: Pokemon, viewModel: PokemonViewModel) {
+    init(pokemon: Pokemon) {
         self.pokemon = pokemon
-        self.viewModel = viewModel
-        self.backgroundColor = Color(viewModel.backgroundColor(forType: pokemon.types[0].type.name))
+        self.backgroundColor = Color(Utils.backgroundColor(forType: pokemon.types[0].type.name))
     }
     
     var body: some View {
         ZStack {
             NavigationLink(
-                destination: PokemonDetail(pokemon: pokemon, viewModel: viewModel),
+                destination: PokemonDetail(pokemon: pokemon),
                 label: {
                     ZStack {
                         VStack(alignment: .leading) {
@@ -52,7 +50,7 @@ struct PokemonCell: View {
                     }
                     .background(backgroundColor)
                     .cornerRadius(12)
-                    .shadow(color: backgroundColor, radius: 6, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+                    .shadow(color: backgroundColor, radius: 6, x: 0.0, y: 0.0)
                 })
         }
     }

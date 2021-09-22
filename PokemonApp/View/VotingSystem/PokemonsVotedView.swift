@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct PokemonsVotedView: View {
-    private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
-    
     @ObservedObject var viewModel = PokemonsVotedViewModel()
     
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
-                    LazyVGrid(columns: gridItems, spacing: 16 ) {
+                    LazyVGrid(columns: Constants.gridItems, spacing: 16 ) {
                         ForEach(viewModel.pokemons, id: \.id) { pokemon in
-                            PokemonVotedCell(pokemon: pokemon, viewModel: viewModel)
+                            PokemonCell(pokemon: pokemon)
                         }
                     }
                     .padding(.horizontal, 6)
@@ -27,6 +25,10 @@ struct PokemonsVotedView: View {
                 }
                 if viewModel.isLoading {
                     LoadingView()
+                }
+                if viewModel.pokemons.isEmpty {
+                    Text("You haven't voted for any Pokemon")
+                        .font(.title3)
                 }
             }
         }

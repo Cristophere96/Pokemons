@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct GenerationsView: View {
-    private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
         ZStack {
             NavigationView {
                 ScrollView {
-                    LazyVGrid(columns: gridItems, spacing: 16 ) {
+                    LazyVGrid(columns: Constants.gridItems, spacing: 16 ) {
                         GenerationCell(title: "Generation 1", image: "first_gen", limit: 151, offset: 0)
                         
                         GenerationCell(title: "Generation 2", image: "second_gen", limit: 100, offset: 151)

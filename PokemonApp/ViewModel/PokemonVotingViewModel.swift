@@ -82,19 +82,4 @@ class PokemonVotingViewModel: ObservableObject {
     func dislikePokemon() {
         savePokemon(type: "DISLIKE")
     }
-    
-    func backgroundColor(forType type: String) -> UIColor {
-        switch type {
-        case "fire": return .systemRed
-        case "grass" : return .systemGreen
-        case "water" : return .systemBlue
-        case "electric": return .systemYellow
-        case "pshychic": return .systemPurple
-        case "normal": return .systemOrange
-        case "ground": return .systemGray
-        case "flying": return .systemTeal
-        case "fairy": return .systemPink
-        default: return .systemIndigo
-        }
-    }
 }

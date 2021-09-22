@@ -10,24 +10,24 @@ import Kingfisher
 
 struct PokemonDetail: View {
     let pokemon: Pokemon
-    let viewModel: PokemonViewModel
     let color: Color
     let pokemonWeight: String
     let pokemonHeight: String
     
-    init(pokemon: Pokemon, viewModel: PokemonViewModel) {
+    init(pokemon: Pokemon) {
         self.pokemon = pokemon
-        self.viewModel = viewModel
-        self.color = Color(viewModel.backgroundColor(forType: pokemon.types[0].type.name))
-        self.pokemonWeight = viewModel.parseWeigthAndHeigth(forValue: pokemon.weight)
-        self.pokemonHeight = viewModel.parseWeigthAndHeigth(forValue: pokemon.height)
+        self.color = Color(Utils.backgroundColor(forType: pokemon.types[0].type.name))
+        self.pokemonWeight = Utils.parseWeigthAndHeigth(forValue: pokemon.weight)
+        self.pokemonHeight = Utils.parseWeigthAndHeigth(forValue: pokemon.height)
     }
     
     var body: some View {
-        ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .center, spacing: 20) {
                 KFImage(URL(string: pokemon.sprites.front_default))
-                    .frame(width: 68, height: 68)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
                     .padding([.bottom, .trailing], 4)
                 
                 VStack (alignment: .leading, spacing: 20) {
@@ -44,23 +44,22 @@ struct PokemonDetail: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(Color(.label))
+                    
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(pokemon.types, id: \.slot) { type in
                                 Text(type.type.name.capitalized)
                                     .font(.subheadline)
                                     .foregroundColor(Color(.label))
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 24)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
+                                        RoundedRectangle(cornerRadius: 16)
                                             .fill(
                                                 Color(
-                                                    viewModel.backgroundColor(forType: type.type.name)
+                                                    Utils.backgroundColor(forType: type.type.name)
                                                 ).opacity(0.25))
-                                    )
-                                    .frame(width: 100, height: 24)
-                            }
+                                    )                            }
                         }
                     }
                     
@@ -93,19 +92,13 @@ struct PokemonDetail: View {
                                     .font(.subheadline)
                                     .foregroundColor(Color(.label))
                                     .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(
-                                                Color(.label).opacity(0.25))
-                                    )
-                                    
+                                    .padding(.vertical, 8)                                    
                             }
                         }
                     }
                 }
                 .padding(.horizontal, 20)
-                .frame(maxWidth: 640, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(maxWidth: 640, alignment: .center)
             }
         }
     }

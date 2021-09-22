@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PokemonsView: View {
-    private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
     @ObservedObject var viewModel: PokemonViewModel
     let limit: Int
     let offset: Int
@@ -24,9 +23,9 @@ struct PokemonsView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                LazyVGrid(columns: gridItems, spacing: 16 ) {
+                LazyVGrid(columns: Constants.gridItems, spacing: 16 ) {
                     ForEach(viewModel.pokemons) { pokemon in
-                        PokemonCell(pokemon: pokemon, viewModel: viewModel)
+                        PokemonCell(pokemon: pokemon)
                     }
                 }
                 .padding(.horizontal, 6)

@@ -10,63 +10,35 @@ import SwiftUI
 class PokemonViewModel: ObservableObject {
     @Published var pokemons = [Pokemon]()
     @Published var isLoading: Bool = false
+    
     let limit: Int
     let offset: Int
-    let baseUrl: String
+    let pokemonRepo: PokemonRepositoryType
     
-    init(limit: Int, offset: Int) {
+    init(limit: Int,
+         offset: Int,
+         pokemonRepo: PokemonRepositoryType = APIPokemonRepository()
+    ) {
         self.limit = limit
         self.offset = offset
-        self.baseUrl = "https://pokeapi.co/api/v2/pokemon?limit=\(limit)&offset=\(offset)"
-        fetchPokemon()
+        self.pokemonRepo = pokemonRepo
+        fetchPokemons()
     }
     
-    func fetchPokemon() {
+    func fetchPokemons() {
         self.isLoading = true
         
-        guard let url = URL(string: baseUrl) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { return }
-            guard let pokedex = try? JSONDecoder().decode(Pokedex.self, from: data) else { return }
+        pokemonRepo.getAllPokemonsFromAGeneration(limit: limit, offset: offset) { result in
+            switch result {
+            case .success(let pokemons):
+                DispatchQueue.main.async {
+                    self.pokemons = pokemons
+                    self.isLoading = false
+                }
             
-            for pokemon in pokedex.results {
-                guard let jsonURL = pokemon.url else { return }
-                guard let newURL = URL(string: jsonURL) else { return }
-                
-                URLSession.shared.dataTask(with: newURL) { data, response, error in
-                    guard let data = data else { return }
-                    guard let result = try? JSONDecoder().decode(Pokemon.self, from: data) else { return }
-                    
-                    DispatchQueue.main.async {
-                        self.pokemons.append(result)
-                        self.pokemons.sort {
-                            $0.id < $1.id
-                        }
-                        self.isLoading = false
-                    }
-                }.resume()
+            case .failure(let error):
+                print(error.localizedDescription)
             }
-        }.resume()
-    }
-    
-    func backgroundColor(forType type: String) -> UIColor {
-        switch type {
-        case "fire": return .systemRed
-        case "grass" : return .systemGreen
-        case "water" : return .systemBlue
-        case "electric": return .systemYellow
-        case "pshychic": return .systemPurple
-        case "normal": return .systemOrange
-        case "ground": return .systemGray
-        case "flying": return .systemTeal
-        case "fairy": return .systemPink
-        default: return .systemIndigo
         }
-    }
-    
-    func parseWeigthAndHeigth(forValue value: Int) -> String {
-        let result = Double(value).rounded() / 10.0
-        return String(format: "%.2f", result)
     }
 }
