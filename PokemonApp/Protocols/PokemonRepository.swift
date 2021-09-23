@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol PokemonRepositoryType {
-    func getAllPokemonsFromAGeneration(limit: Int, offset: Int,
-                                       completion: @escaping (Result<[Pokemon], Error>) ->  Void)
     
-    func getASinglePokemon(url: String, completion: @escaping (Result<Pokemon, Error>) -> Void)
+    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<Pokedex, Error>?
+    
+    func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error>?
+
+    func getRandomPokemon() -> AnyPublisher<Pokemon, Error>?
+    
 }

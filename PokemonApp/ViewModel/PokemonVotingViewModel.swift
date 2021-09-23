@@ -6,44 +6,43 @@
 //
 
 import SwiftUI
+import Combine
 
 class PokemonVotingViewModel: ObservableObject {
     private var viewContext = PersistenceController.shared.viewContext
     
     @Published var pokemon = [Pokemon]()
     @Published var isLoading: Bool = false
-    var baseUrl: String = ""
+    let pokemonRepo: PokemonRepositoryType
+    private var subscribers: Set<AnyCancellable> = []
     
-    init() {
+    init(pokemonRepo: PokemonRepositoryType = APIPokemonRepository()) {
+        self.pokemonRepo = pokemonRepo
         fetchSinglePokemon()
-    }
-    
-    func generateRandomPokemonURL() {
-        let number = Int.random(in: 1..<894)
-        
-        self.baseUrl = "https://pokeapi.co/api/v2/pokemon/\(number)"
     }
     
     func fetchSinglePokemon() {
         self.isLoading = true
-        generateRandomPokemonURL()
-        
-        guard let url = URL(string: baseUrl) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            guard let result = try? JSONDecoder().decode(Pokemon.self, from: data) else { return }
-            
-            DispatchQueue.main.async {
-                self.pokemon = [result]
-                self.isLoading = false
+        pokemonRepo.getRandomPokemon()?
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    // IDK WHAT TO DO HERE
+                    break
+                case .failure(let error):
+                    self?.isLoading = false
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { [weak self] pokemon in
+                self?.pokemon = [pokemon]
+                self?.isLoading = false
             }
-        }.resume()
+            .store(in: &subscribers)
     }
     
     func saveToCoreData(type: String) {
         let new = PokemonsVoted(context: self.viewContext)
-        new.url = self.baseUrl
+        new.url = "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)"
         new.voteType = type
         
         do {
@@ -62,7 +61,7 @@ class PokemonVotingViewModel: ObservableObject {
         } else {
             var exist: Bool = false
             for item in pokemonsVoted {
-                if item.url == self.baseUrl {
+                if item.url == "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)" {
                    exist = true
                 }
             }

@@ -26,15 +26,15 @@ struct PokemonsVotedView: View {
                 if viewModel.isLoading {
                     LoadingView()
                 }
-                if viewModel.pokemons.isEmpty {
+                if viewModel.isEmpty {
                     Text("You haven't voted for any Pokemon")
                         .font(.title3)
                 }
             }
-        }
-        .onAppear(){
-            viewModel.getAllPokemonsVoted()
-            viewModel.fetchPokemons()
+            .onAppear(){
+                viewModel.getAllPokemonsVoted()
+                viewModel.fetchPokemons()
+            }
         }
     }
 }

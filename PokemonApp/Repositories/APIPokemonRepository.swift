@@ -6,53 +6,41 @@
 //
 
 import SwiftUI
+import Combine
 
 class APIPokemonRepository: PokemonRepositoryType {
-    func getAllPokemonsFromAGeneration(limit: Int, offset: Int, completion: @escaping (Result<[Pokemon], Error>) -> Void) {
-        var pokemons: [Pokemon] = []
+    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<Pokedex, Error>? {
+        guard let url = URL(string: "\(Constants.urlsName.pokemonURLBase)?limit=\(limit)&offset=\(offset)") else { return nil }
         
-        guard let url = URL(string: "\(Constants.urlsName.pokemonURLBase)?limit=\(limit)&offset=\(offset)") else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard
-                let data = data,
-                let pokedex = try? JSONDecoder().decode(Pokedex.self, from: data)
-            else { return }
-            
-            for pokemon in pokedex.results {
-                guard
-                    let jsonURL = pokemon.url,
-                    let eachPokemonURL = URL(string: jsonURL)
-                else { return }
-                
-                URLSession.shared.dataTask(with: eachPokemonURL) { data, response, error in
-                    guard let data = data else { return }
-                    
-                    do {
-                        let pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
-                        pokemons.append(pokemon)
-                        pokemons.sort { $0.id < $1.id }
-                        completion(.success(pokemons))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                }.resume()
-            }
-        }.resume()
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: DispatchQueue.main)
+            .map { $0.data }
+            .decode(type: Pokedex.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
     
-    func getASinglePokemon(url: String, completion: @escaping (Result<Pokemon, Error>) -> Void) {
-        guard let url = URL(string: url) else { return }
+    func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error>? {
+        guard let url = URL(string: url) else { return nil }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { return }
-            
-            do {
-                let pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
-                completion(.success(pokemon))
-            } catch {
-                completion(.failure(error))
-            }
-        }.resume()
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: DispatchQueue.main)
+            .map { $0.data }
+            .decode(type: Pokemon.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
+
+    func getRandomPokemon() -> AnyPublisher<Pokemon, Error>? {
+        let number = Int.random(in: 1..<894)
+        guard let url = URL(string: "\(Constants.urlsName.pokemonURLBase)/\(number)") else { return nil }
+        
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: DispatchQueue.main)
+            .map { $0.data }
+            .decode(type: Pokemon.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+    
 }

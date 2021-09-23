@@ -37,7 +37,7 @@ struct PokemonCell: View {
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 8)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
+                                        RoundedRectangle(cornerRadius: 10)
                                             .fill(Color.white.opacity(0.25))
                                     )
                                     .frame(width: 100, height: 24)

@@ -54,7 +54,7 @@ struct PokemonDetail: View {
                                     .padding(.vertical, 10)
                                     .padding(.horizontal, 24)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 16)
+                                        RoundedRectangle(cornerRadius: 10)
                                             .fill(
                                                 Color(
                                                     Utils.backgroundColor(forType: type.type.name)
