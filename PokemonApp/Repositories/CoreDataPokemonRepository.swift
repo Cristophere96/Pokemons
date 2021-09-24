@@ -13,10 +13,17 @@ class CoreDataPokemonRepository: PokemonDataBaseRepositoryType {
         completion(.success(data))
     }
     
-    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let viewContext = PersistenceController.shared.viewContext
         let new = PokemonsVoted(context: viewContext)
         new.url = url
         new.voteType = type
+        
+        do {
+            try viewContext.save()
+            completion(.success(true))
+        } catch {
+            completion(.failure(error))
+        }
     }
 }

@@ -9,15 +9,16 @@ import SwiftUI
 import Combine
 
 class PokemonVotingViewModel: ObservableObject {
-    private var viewContext = PersistenceController.shared.viewContext
-    
     @Published var pokemon = [Pokemon]()
     @Published var isLoading: Bool = false
     let pokemonRepo: PokemonRepositoryType
+    let pokemonsStoredRepo: PokemonDataBaseRepositoryType
     private var subscribers: Set<AnyCancellable> = []
     
-    init(pokemonRepo: PokemonRepositoryType = APIPokemonRepository()) {
+    init(pokemonRepo: PokemonRepositoryType = APIPokemonRepository(),
+         pokemonsStoredRepo: PokemonDataBaseRepositoryType = CoreDataPokemonRepository()) {
         self.pokemonRepo = pokemonRepo
+        self.pokemonsStoredRepo = pokemonsStoredRepo
         fetchSinglePokemon()
     }
     
@@ -41,20 +42,28 @@ class PokemonVotingViewModel: ObservableObject {
     }
     
     func saveToCoreData(type: String) {
-        let new = PokemonsVoted(context: self.viewContext)
-        new.url = "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)"
-        new.voteType = type
-        
-        do {
-            try self.viewContext.save()
-            fetchSinglePokemon()
-        } catch {
-            print("Unresolved error: \(error)")
+        pokemonsStoredRepo.savePokemonToCoreData(url: "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)", type: type) { result in
+            switch result {
+            case .success(_):
+                self.fetchSinglePokemon()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
     
     func savePokemon(type: String) {
-        let pokemonsVoted: [PokemonsVoted] = PersistenceController.shared.getAllPokemonsVoted()
+        var pokemonsVoted: [PokemonsVoted] = []
+        
+        pokemonsStoredRepo.getAllPokemonsFromCoreData { result in
+            switch result {
+            case .success(let pokemonsStored):
+                pokemonsVoted = pokemonsStored
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
         
         if pokemonsVoted.count == 0 {
             saveToCoreData(type: type)
