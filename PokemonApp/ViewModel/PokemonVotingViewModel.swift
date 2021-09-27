@@ -11,20 +11,21 @@ import Combine
 class PokemonVotingViewModel: ObservableObject {
     @Published var pokemon = [Pokemon]()
     @Published var isLoading: Bool = false
-    let pokemonRepo: PokemonRepositoryType
-    let pokemonsStoredRepo: PokemonDataBaseRepositoryType
+    
+    let networkInteractor: PokemonRepositoryType
+    let coreDataInteractor: PokemonDataBaseRepositoryType
     private var subscribers: Set<AnyCancellable> = []
     
-    init(pokemonRepo: PokemonRepositoryType = APIPokemonRepository(),
-         pokemonsStoredRepo: PokemonDataBaseRepositoryType = CoreDataPokemonRepository()) {
-        self.pokemonRepo = pokemonRepo
-        self.pokemonsStoredRepo = pokemonsStoredRepo
+    init(networkInteractor: PokemonRepositoryType = PokemonRepositoryInteractor(),
+         coreDataInteractor: PokemonDataBaseRepositoryType = CoreDataPokemonRepositoryInteractor()) {
+        self.networkInteractor = networkInteractor
+        self.coreDataInteractor = coreDataInteractor
         fetchSinglePokemon()
     }
     
     func fetchSinglePokemon() {
         self.isLoading = true
-        pokemonRepo.getRandomPokemon()?
+        networkInteractor.getRandomPokemon()?
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -42,7 +43,7 @@ class PokemonVotingViewModel: ObservableObject {
     }
     
     func saveToCoreData(type: String) {
-        pokemonsStoredRepo.savePokemonToCoreData(url: "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)", type: type) { result in
+        coreDataInteractor.savePokemonToCoreData(url: "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)", type: type) { result in
             switch result {
             case .success(_):
                 self.fetchSinglePokemon()
@@ -55,7 +56,7 @@ class PokemonVotingViewModel: ObservableObject {
     func savePokemon(type: String) {
         var pokemonsVoted: [PokemonsVoted] = []
         
-        pokemonsStoredRepo.getAllPokemonsFromCoreData { result in
+        coreDataInteractor.getAllPokemonsFromCoreData { result in
             switch result {
             case .success(let pokemonsStored):
                 pokemonsVoted = pokemonsStored

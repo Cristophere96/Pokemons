@@ -17,20 +17,20 @@ class PokemonsVotedViewModel: ObservableObject {
     
     private var subscribers: Set<AnyCancellable> = []
     
-    let pokemonRepo: PokemonRepositoryType
-    let pokemonsStoredRepo: PokemonDataBaseRepositoryType
+    let networkInteractor: PokemonRepositoryType
+    let coreDataInteractor: PokemonDataBaseRepositoryType
     
-    init(pokemonRepo: PokemonRepositoryType = APIPokemonRepository(),
-         pokemonsStoredRepo: PokemonDataBaseRepositoryType = CoreDataPokemonRepository()
+    init(networkInteractor: PokemonRepositoryType = PokemonRepositoryInteractor(),
+         coreDataInteractor: PokemonDataBaseRepositoryType = CoreDataPokemonRepositoryInteractor()
     ) {
-        self.pokemonRepo = pokemonRepo
-        self.pokemonsStoredRepo = pokemonsStoredRepo
+        self.networkInteractor = networkInteractor
+        self.coreDataInteractor = coreDataInteractor
         getAllPokemonsVoted()
         fetchPokemons()
     }
     
     func getAllPokemonsVoted() {
-        pokemonsStoredRepo.getAllPokemonsFromCoreData { result in
+        coreDataInteractor.getAllPokemonsFromCoreData { result in
             switch result {
             case .success(let pokemonsStored):
                 self.pokemonsVoted = pokemonsStored
@@ -47,7 +47,7 @@ class PokemonsVotedViewModel: ObservableObject {
             self.isEmpty = false
             self.isLoading = true
             for pokemonVoted in pokemonsVoted {
-                pokemonRepo.getASinglePokemon(url: pokemonVoted.url ?? "")?
+                networkInteractor.getASinglePokemon(url: pokemonVoted.url ?? "")?
                     .sink { [weak self] completion in
                         switch completion {
                         case .finished:

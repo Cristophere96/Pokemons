@@ -28,6 +28,9 @@
 		80B92A1D2686CD0100C9EFF5 /* PokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B92A1C2686CD0100C9EFF5 /* PokemonViewModel.swift */; };
 		80BFD6FD2687B53C00DC14A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80BFD6FC2687B53C00DC14A1 /* Assets.xcassets */; };
 		80BFD7022687C74900DC14A1 /* PokemonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BFD7012687C74900DC14A1 /* PokemonDetail.swift */; };
+		B21768412701FC2400204DA4 /* PokemonRepositoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21768402701FC2400204DA4 /* PokemonRepositoryInteractor.swift */; };
+		B21768432702139700204DA4 /* CoreDataPokemonRepositoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21768422702139700204DA4 /* CoreDataPokemonRepositoryInteractor.swift */; };
+		B21768452702689100204DA4 /* CoreDataManagerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21768442702689100204DA4 /* CoreDataManagerPublisher.swift */; };
 		B224414126FB7D9A00A270BF /* Constanst.swift in Sources */ = {isa = PBXBuildFile; fileRef = B224414026FB7D9A00A270BF /* Constanst.swift */; };
 		B224414326FB8EF200A270BF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B224414226FB8EF200A270BF /* Utils.swift */; };
 		B224414526FBCA5700A270BF /* PokemonDataBaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B224414426FBCA5700A270BF /* PokemonDataBaseRepository.swift */; };
@@ -80,6 +83,9 @@
 		80B92A1C2686CD0100C9EFF5 /* PokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModel.swift; sourceTree = "<group>"; };
 		80BFD6FC2687B53C00DC14A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80BFD7012687C74900DC14A1 /* PokemonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetail.swift; sourceTree = "<group>"; };
+		B21768402701FC2400204DA4 /* PokemonRepositoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonRepositoryInteractor.swift; sourceTree = "<group>"; };
+		B21768422702139700204DA4 /* CoreDataPokemonRepositoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPokemonRepositoryInteractor.swift; sourceTree = "<group>"; };
+		B21768442702689100204DA4 /* CoreDataManagerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerPublisher.swift; sourceTree = "<group>"; };
 		B224414026FB7D9A00A270BF /* Constanst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constanst.swift; sourceTree = "<group>"; };
 		B224414226FB8EF200A270BF /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B224414426FBCA5700A270BF /* PokemonDataBaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDataBaseRepository.swift; sourceTree = "<group>"; };
@@ -165,6 +171,7 @@
 		80B929E72686BEE400C9EFF5 /* PokemonApp */ = {
 			isa = PBXGroup;
 			children = (
+				B217683F2701FC0500204DA4 /* Interactors */,
 				B27F457026FA8340008F8380 /* Repositories */,
 				B27F456D26FA8114008F8380 /* Protocols */,
 				80B92A152686BF1200C9EFF5 /* ViewModel */,
@@ -172,6 +179,7 @@
 				80B92A132686BF0200C9EFF5 /* Model */,
 				80B929E82686BEE400C9EFF5 /* PokemonAppApp.swift */,
 				80B929EA2686BEE400C9EFF5 /* ContentView.swift */,
+				B21768442702689100204DA4 /* CoreDataManagerPublisher.swift */,
 				80B929F12686BEE600C9EFF5 /* Info.plist */,
 				80BFD6FC2687B53C00DC14A1 /* Assets.xcassets */,
 				80B929EE2686BEE600C9EFF5 /* Preview Content */,
@@ -236,6 +244,15 @@
 				80714D28268BEFCC00CF8EDD /* PokemonsVotedViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B217683F2701FC0500204DA4 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				B21768402701FC2400204DA4 /* PokemonRepositoryInteractor.swift */,
+				B21768422702139700204DA4 /* CoreDataPokemonRepositoryInteractor.swift */,
+			);
+			path = Interactors;
 			sourceTree = "<group>";
 		};
 		B27F456D26FA8114008F8380 /* Protocols */ = {
@@ -394,6 +411,7 @@
 				80B92A1B2686C5AF00C9EFF5 /* Pokemon.swift in Sources */,
 				80714D29268BEFCC00CF8EDD /* PokemonsVotedViewModel.swift in Sources */,
 				8071DC1E2688D29B007FCF2B /* GenerationsView.swift in Sources */,
+				B21768432702139700204DA4 /* CoreDataPokemonRepositoryInteractor.swift in Sources */,
 				80B92A192686C36500C9EFF5 /* PokemonsView.swift in Sources */,
 				80714D25268BEC0A00CF8EDD /* Persistence.swift in Sources */,
 				B27F456F26FA8134008F8380 /* PokemonRepository.swift in Sources */,
@@ -409,10 +427,12 @@
 				803018DD268BEB1D008F82CC /* PokemonsVoted.xcdatamodeld in Sources */,
 				8071DC202688DCCF007FCF2B /* GenerationCell.swift in Sources */,
 				B224414326FB8EF200A270BF /* Utils.swift in Sources */,
+				B21768412701FC2400204DA4 /* PokemonRepositoryInteractor.swift in Sources */,
 				B224414526FBCA5700A270BF /* PokemonDataBaseRepository.swift in Sources */,
 				802F614D268A9FB900B066E5 /* PokemonVotingView.swift in Sources */,
 				B27F457226FA8365008F8380 /* APIPokemonRepository.swift in Sources */,
 				802F614F268AA83800B066E5 /* PokemonVotingViewModel.swift in Sources */,
+				B21768452702689100204DA4 /* CoreDataManagerPublisher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +636,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2SGR54S8C2;
 				INFOPLIST_FILE = PokemonAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -638,7 +658,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2SGR54S8C2;
 				INFOPLIST_FILE = PokemonAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

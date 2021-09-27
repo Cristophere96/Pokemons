@@ -16,22 +16,22 @@ class PokemonViewModel: ObservableObject {
     
     let limit: Int
     let offset: Int
-    let pokemonRepo: PokemonRepositoryType
+    let interactor: PokemonRepositoryType
     
     init(limit: Int,
          offset: Int,
-         pokemonRepo: PokemonRepositoryType = APIPokemonRepository()
+         interactor: PokemonRepositoryType = PokemonRepositoryInteractor()
     ) {
         self.limit = limit
         self.offset = offset
-        self.pokemonRepo = pokemonRepo
+        self.interactor = interactor
         fetchPokemons()
     }
     
     func fetchPokemons() {
         self.isLoading = true
         
-        pokemonRepo.getPokemonsURLFromAGeneration(limit: limit, offset: offset)?
+        interactor.getPokemonsURLFromAGeneration(limit: limit, offset: offset)?
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -50,7 +50,7 @@ class PokemonViewModel: ObservableObject {
     }
     
     func getSinglePokemon(url: String) {
-        pokemonRepo.getASinglePokemon(url: url)?
+        interactor.getASinglePokemon(url: url)?
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:

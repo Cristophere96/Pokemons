@@ -29,7 +29,7 @@ struct GenerationCell: View {
                             Image(image)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 180, height: 70)
+                                .frame(width: UIScreen.main.bounds.width * 0.4, height: 90)
                                 .padding([.bottom, .trailing], 4)
                         }
                     }
