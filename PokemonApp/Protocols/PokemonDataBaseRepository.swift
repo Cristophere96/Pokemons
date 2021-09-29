@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol PokemonDataBaseRepositoryType {
-    func getAllPokemonsFromCoreData(completion: @escaping (Result<[PokemonsVoted], Error>) -> Void)
+    func getAllPokemonsFromCoreData() -> AnyPublisher<[DPokemonsVoted], Error>?
     
     func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void)
 }

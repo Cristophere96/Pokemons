@@ -25,7 +25,7 @@ struct ContentView: View {
             PokemonsVotedView()
                 .tabItem {
                     Image(systemName: "star.fill")
-                    Text("Pokemons voted")
+                    Text("Your votes")
                 }
         }
         .accentColor(.red)

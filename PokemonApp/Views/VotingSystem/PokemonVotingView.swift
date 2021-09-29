@@ -13,6 +13,9 @@ struct PokemonVotingView: View {
     
     var body: some View {
         VStack {
+            if viewModel.showError {
+                ErrorView(buttonAction: { viewModel.fetchRandomPokemon() }, errorMessage: viewModel.errorMessage)
+            }
             if viewModel.isLoading {
                 LoadingView()
             } else {

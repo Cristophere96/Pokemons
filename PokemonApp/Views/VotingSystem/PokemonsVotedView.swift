@@ -30,6 +30,12 @@ struct PokemonsVotedView: View {
                     Text("You haven't voted for any Pokemon")
                         .font(.title3)
                 }
+                if viewModel.showError {
+                    ErrorView(buttonAction: {
+                        viewModel.getAllPokemonsVoted()
+                        viewModel.fetchPokemons()
+                    }, errorMessage: viewModel.errorMessage)
+                }
             }
             .onAppear(){
                 viewModel.getAllPokemonsVoted()

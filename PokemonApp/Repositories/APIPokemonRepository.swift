@@ -9,21 +9,33 @@ import SwiftUI
 import Combine
 
 class APIPokemonRepository: PokemonRepositoryType {
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<Pokedex, Error>? {
+    
+    private var urlSession: URLSession
+    
+    init(urlSession: URLSession) {
+        self.urlSession = urlSession
+    }
+    
+    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
         guard let url = URL(string: "\(Constants.urlsName.pokemonURLBase)?limit=\(limit)&offset=\(offset)") else { return nil }
         
-        return URLSession.shared.dataTaskPublisher(for: url)
+        return urlSession.dataTaskPublisher(for: url)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map { $0.data }
             .decode(type: Pokedex.self, decoder: JSONDecoder())
+            .map { $0.results.map { self.getASinglePokemon(url: $0.url ?? "") } }
+            .flatMap({ pokedex in
+                Publishers.MergeMany(pokedex)
+            })
+            .collect()
             .eraseToAnyPublisher()
     }
     
-    func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error>? {
-        guard let url = URL(string: url) else { return nil }
+    func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error> {
+        let url = URL(string: url)!
         
-        return URLSession.shared.dataTaskPublisher(for: url)
+        return urlSession.dataTaskPublisher(for: url)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map { $0.data }
@@ -31,11 +43,10 @@ class APIPokemonRepository: PokemonRepositoryType {
             .eraseToAnyPublisher()
     }
 
-    func getRandomPokemon() -> AnyPublisher<Pokemon, Error>? {
-        let number = Int.random(in: 1..<894)
-        guard let url = URL(string: "\(Constants.urlsName.pokemonURLBase)/\(number)") else { return nil }
+    func getRandomPokemon(url: String) -> AnyPublisher<Pokemon, Error>? {
+        guard let url = URL(string: url) else { return nil }
         
-        return URLSession.shared.dataTaskPublisher(for: url)
+        return urlSession.dataTaskPublisher(for: url)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map { $0.data }

@@ -11,10 +11,12 @@ import Kingfisher
 struct PokemonCell: View {
     let pokemon: Pokemon
     let backgroundColor: Color
+    var pokemonTypeTextSize: Font
     
     init(pokemon: Pokemon) {
         self.pokemon = pokemon
         self.backgroundColor = Color(Utils.backgroundColor(forType: pokemon.types[0].type.name))
+        self.pokemonTypeTextSize = UIScreen.main.bounds.width <= 320.0 ? .caption2 : UIScreen.main.bounds.width < 390 ? .caption : .subheadline
     }
     
     var body: some View {
@@ -32,7 +34,8 @@ struct PokemonCell: View {
                             
                             HStack {
                                 Text(pokemon.types[0].type.name.capitalized)
-                                    .font(.subheadline)
+                                    .font(pokemonTypeTextSize)
+                                    .fontWeight(.semibold)
                                     .foregroundColor(.white)
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 8)
@@ -40,12 +43,13 @@ struct PokemonCell: View {
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color.white.opacity(0.25))
                                     )
-                                    .frame(width: 100, height: 24)
+                                    .frame(width: UIScreen.main.bounds.width * 0.210, height: 24)
                                 
                                 KFImage(URL(string: pokemon.sprites.front_default))
-                                    .frame(width: 68, height: 68)
-                                    .padding([.bottom, .trailing], 4)
+                                    .frame(width: UIScreen.main.bounds.width * 0.22, height: UIScreen.main.bounds.width * 0.22)
+                                    .padding(.bottom, 8)
                             }
+                            .padding(.horizontal, 4)
                         }
                     }
                     .background(backgroundColor)
