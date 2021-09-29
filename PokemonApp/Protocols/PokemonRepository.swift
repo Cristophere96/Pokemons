@@ -10,10 +10,10 @@ import Combine
 
 protocol PokemonRepositoryType {
     
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<Pokedex, Error>?
+    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>?
     
-    func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error>?
+    func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error>
 
-    func getRandomPokemon() -> AnyPublisher<Pokemon, Error>?
+    func getRandomPokemon(url: String) -> AnyPublisher<Pokemon, Error>?
     
 }

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Combine
 
-struct Pokedex: Decodable {
+struct Pokedex: Decodable {    
     let results: [Results]
 }
 

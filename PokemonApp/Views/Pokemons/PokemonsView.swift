@@ -35,6 +35,10 @@ struct PokemonsView: View {
             if viewModel.isLoading {
                 LoadingView()
             }
+            if viewModel.showError {
+                ErrorView(buttonAction: { viewModel.fetchPokemons() },
+                          errorMessage: viewModel.errorMessage)
+            }
         }
     }
 }
