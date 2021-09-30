@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
 class PokemonVotingViewModel: ObservableObject {
     @Published var pokemon : [Pokemon] = []
@@ -14,18 +15,12 @@ class PokemonVotingViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
     
-    let networkInteractor: GetRandomPokemonInteractor
-    let pokemonsVotedInteractor: GetPokemonsVotedInteractor
-    let storePokemonInteractor: StorePokemonInteractor
+    @Injected var networkInteractor: GetRandomPokemonInteractorType
+    @Injected var pokemonsVotedInteractor: GetPokemonsVotedInteractorType
+    @Injected var storePokemonInteractor: StorePokemonInteractorType
     private var subscribers: Set<AnyCancellable> = []
     
-    init(networkInteractor: GetRandomPokemonInteractor = GetRandomPokemonInteractor(repository: APIPokemonRepository(urlSession: URLSession.shared)),
-         pokemonsVotedInteractor: GetPokemonsVotedInteractor = GetPokemonsVotedInteractor(repository: CoreDataPokemonRepository()),
-         storePokemonInteractor: StorePokemonInteractor = StorePokemonInteractor(repo: CoreDataPokemonRepository())
-         ) {
-        self.networkInteractor = networkInteractor
-        self.pokemonsVotedInteractor = pokemonsVotedInteractor
-        self.storePokemonInteractor = storePokemonInteractor
+    init() {
         fetchRandomPokemon()
     }
     
@@ -103,10 +98,10 @@ class PokemonVotingViewModel: ObservableObject {
     }
     
     func likePokemon() {
-        savePokemon(type: "LIKE")
+        savePokemon(type: "LIKED")
     }
     
     func dislikePokemon() {
-        savePokemon(type: "DISLIKE")
+        savePokemon(type: "DISLIKED")
     }
 }

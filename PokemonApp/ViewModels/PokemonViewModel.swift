@@ -7,26 +7,23 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
 class PokemonViewModel: ObservableObject {
     @Published var pokemons: [Pokemon] = []
     @Published var isLoading: Bool = false
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
+    @Injected var getPokemonFromAGenerationInteractor: GetPokemonsFromAGenerationInteractorType
     
     private var subscribers: Set<AnyCancellable> = []
     
     let limit: Int
     let offset: Int
-    let interactor: GetPokemonsFromAGenerationInteractor
     
-    init(limit: Int,
-         offset: Int,
-         interactor: GetPokemonsFromAGenerationInteractor = GetPokemonsFromAGenerationInteractor(repository: APIPokemonRepository(urlSession: URLSession.shared))
-    ) {
+    init(limit: Int, offset: Int) {
         self.limit = limit
         self.offset = offset
-        self.interactor = interactor
         fetchPokemons()
     }
     
@@ -35,7 +32,7 @@ class PokemonViewModel: ObservableObject {
         self.showError = false
         self.errorMessage = ""
         
-        interactor.getPokemonsURLFromAGeneration(limit: limit, offset: offset)?
+        getPokemonFromAGenerationInteractor.getPokemonsURLFromAGeneration(limit: limit, offset: offset)?
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:

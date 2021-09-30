@@ -22,6 +22,7 @@ class CoreDataPokemonRepository: PokemonDataBaseRepositoryType {
     func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let viewContext = PersistenceController.shared.viewContext
         let new = PokemonsVoted(context: viewContext)
+        new.id = UUID()
         new.url = url
         new.voteType = type
         
