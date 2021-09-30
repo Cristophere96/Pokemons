@@ -7,13 +7,16 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
-class StorePokemonInteractor {
-    private var repository: PokemonDataBaseRepositoryType
+protocol StorePokemonInteractorType {
+    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void)
+}
+
+class StorePokemonInteractor: StorePokemonInteractorType {
+    @Injected var repository: PokemonDataBaseRepositoryType
     
-    init(repo: PokemonDataBaseRepositoryType) {
-        self.repository = repo
-    }
+    init() {  }
     
     func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         self.repository.savePokemonToCoreData(url: url, type: type, completion: completion)

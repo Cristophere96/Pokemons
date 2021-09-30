@@ -7,13 +7,16 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
-class GetASinglePokemonInteractor {
-    private var repository: PokemonRepositoryType
+protocol GetASinglePokemonInteractorType {
+    func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error>
+}
+
+class GetASinglePokemonInteractor: GetASinglePokemonInteractorType {
+    @Injected var repository: PokemonRepositoryType
     
-    init(repository: PokemonRepositoryType) {
-        self.repository = repository
-    }
+    init() {  }
     
     func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error> {
         return self.repository.getASinglePokemon(url: url)

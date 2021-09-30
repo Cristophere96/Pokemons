@@ -12,29 +12,39 @@ struct PokemonsVotedView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                ScrollView {
-                    LazyVGrid(columns: Constants.gridItems, spacing: 16 ) {
-                        ForEach(viewModel.pokemons, id: \.id) { pokemon in
-                            PokemonCell(pokemon: pokemon)
-                        }
+            VStack {
+                Picker("choose the type", selection: $viewModel.selectedVoteType) {
+                    ForEach(Constants.VoteTypes.allCases, id: \.self) {
+                        Text($0.rawValue.capitalized)
                     }
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 6)
-                    .navigationTitle("Pokemons you voted")
                 }
-                if viewModel.isLoading {
-                    LoadingView()
-                }
-                if viewModel.isEmpty {
-                    Text("You haven't voted for any Pokemon")
-                        .font(.title3)
-                }
-                if viewModel.showError {
-                    ErrorView(buttonAction: {
-                        viewModel.getAllPokemonsVoted()
-                        viewModel.fetchPokemons()
-                    }, errorMessage: viewModel.errorMessage)
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+                
+                ZStack {
+                    ScrollView {
+                        LazyVGrid(columns: Constants.gridItems, spacing: 16 ) {
+                            ForEach(viewModel.selectedVoteType == .LIKED ? viewModel.pokemonsLiked : viewModel.pokemondsDisliked, id: \.id) { pokemon in
+                                PokemonCell(pokemon: pokemon)
+                            }
+                        }
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 6)
+                        .navigationTitle("Pokemons you voted")
+                    }
+                    if viewModel.isLoading {
+                        LoadingView()
+                    }
+                    if viewModel.isEmpty {
+                        Text("You haven't voted for any Pokemon")
+                            .font(.title3)
+                    }
+                    if viewModel.showError {
+                        ErrorView(buttonAction: {
+                            viewModel.getAllPokemonsVoted()
+                            viewModel.fetchPokemons()
+                        }, errorMessage: viewModel.errorMessage)
+                    }
                 }
             }
             .onAppear(){

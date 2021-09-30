@@ -7,13 +7,16 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
-class GetPokemonsVotedInteractor {
-    private var repository: PokemonDataBaseRepositoryType
+protocol GetPokemonsVotedInteractorType {
+    func getAllPokemonsFromCoreData() -> AnyPublisher<[DPokemonsVoted], Error>?
+}
+
+class GetPokemonsVotedInteractor: GetPokemonsVotedInteractorType {
+    @Injected var repository: PokemonDataBaseRepositoryType
     
-    init(repository: PokemonDataBaseRepositoryType) {
-        self.repository = repository
-    }
+    init() {  }
     
     func getAllPokemonsFromCoreData() -> AnyPublisher<[DPokemonsVoted], Error>? {
         return self.repository.getAllPokemonsFromCoreData()
