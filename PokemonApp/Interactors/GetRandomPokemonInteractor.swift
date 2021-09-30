@@ -7,13 +7,16 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
-class GetRandomPokemonInteractor {
-    private var repository: PokemonRepositoryType
+protocol GetRandomPokemonInteractorType {
+    func getRandomPokemon() -> AnyPublisher<Pokemon, Error>?
+}
+
+class GetRandomPokemonInteractor: GetRandomPokemonInteractorType {
+    @Injected var repository: PokemonRepositoryType
     
-    init(repository: PokemonRepositoryType) {
-        self.repository = repository
-    }
+    init() {  }
     
     func getRandomPokemon() -> AnyPublisher<Pokemon, Error>? {
         let randomNumber = Int.random(in: 1..<894)

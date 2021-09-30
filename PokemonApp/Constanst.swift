@@ -12,5 +12,10 @@ public struct Constants {
         static let pokemonURLBase = "https://pokeapi.co/api/v2/pokemon"
     }
     
+    enum VoteTypes: String, CaseIterable {
+        case LIKED = "LIKED"
+        case DISLIKED = "DISLIKED"
+    }
+    
     static let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
 }

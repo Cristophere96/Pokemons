@@ -7,13 +7,16 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
-class GetPokemonsFromAGenerationInteractor {
-    private var repository: PokemonRepositoryType
+protocol GetPokemonsFromAGenerationInteractorType {
+    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>?
+}
+
+class GetPokemonsFromAGenerationInteractor: GetPokemonsFromAGenerationInteractorType {
+    @Injected var repository: PokemonRepositoryType
     
-    init(repository: PokemonRepositoryType) {
-        self.repository = repository
-    }
+    init() {  }
     
     func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
         return self.repository.getPokemonsURLFromAGeneration(limit: limit, offset: offset)

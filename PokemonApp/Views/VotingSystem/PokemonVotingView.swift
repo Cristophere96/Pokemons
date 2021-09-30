@@ -24,7 +24,8 @@ struct PokemonVotingView: View {
                         VStack(alignment: .center) {
                             KFImage(URL(string: pokemon.sprites.front_default))
                                 .resizable()
-                                .frame(width: 300, height: 300)
+                                .frame(width: UIScreen.main.bounds.width <= 320.0 ? UIScreen.main.bounds.width * 0.5 : UIScreen.main.bounds.width * 0.8,
+                                       height: UIScreen.main.bounds.width <= 320.0 ? UIScreen.main.bounds.width * 0.5 : UIScreen.main.bounds.width * 0.8)
                                 .padding([.vertical, .horizontal], 20)
                             
                             Text(pokemon.name.capitalized)
