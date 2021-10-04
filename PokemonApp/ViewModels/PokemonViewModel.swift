@@ -38,6 +38,7 @@ class PokemonViewModel: ObservableObject {
                 case .finished:
                     break
                 case .failure(let error):
+                    self?.pokemons = []
                     self?.isLoading = false
                     self?.showError = true
                     self?.errorMessage = error.localizedDescription

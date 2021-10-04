@@ -6,77 +6,29 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct PokemonVotingView: View {
     @ObservedObject var viewModel = PokemonVotingViewModel()
     
     var body: some View {
-        VStack {
-            if viewModel.showError {
-                ErrorView(buttonAction: { viewModel.fetchRandomPokemon() }, errorMessage: viewModel.errorMessage)
-            }
-            if viewModel.isLoading {
-                LoadingView()
-            } else {
-                ForEach(viewModel.pokemon) { pokemon in
-                    ZStack {
-                        VStack(alignment: .center) {
-                            KFImage(URL(string: pokemon.sprites.front_default))
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width <= 320.0 ? UIScreen.main.bounds.width * 0.5 : UIScreen.main.bounds.width * 0.8,
-                                       height: UIScreen.main.bounds.width <= 320.0 ? UIScreen.main.bounds.width * 0.5 : UIScreen.main.bounds.width * 0.8)
-                                .padding([.vertical, .horizontal], 20)
-                            
-                            Text(pokemon.name.capitalized)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding(.vertical, 20)
-                                .padding(.leading)
-                            
-                            HStack {
-                                ForEach(pokemon.types, id: \.slot) { type in
-                                    Text(type.type.name.capitalized)
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                        .padding(.horizontal, 16)
-                                        .padding(.vertical, 8)
-                                        .frame(width: 150, height: 40)
-                                }
-                            }
-                            .padding(.bottom, 20)
-                        }
-                    }
-                    .background(Color(Utils.backgroundColor(forType: pokemon.types[0].type.name)))
-                    .cornerRadius(12)
-                    .shadow(color: Color(Utils.backgroundColor(forType: pokemon.types[0].type.name)), radius: 6, x: 0.0, y: 0.0)
+        NavigationView {
+            VStack {
+                if viewModel.showError {
+                    ErrorView(buttonAction: { viewModel.fetchRandomPokemon() }, errorMessage: viewModel.errorMessage)
+                }
+                if viewModel.isLoading {
+                    LoadingView()
+                } else {
+                    Text("Swipe the pokemon card to the left if you dislike it or right if you like it")
                     
-                    HStack(alignment: .center, spacing: 80) {
-                        Button(action: {
-                            viewModel.dislikePokemon()
-                        }) {
-                            Image(systemName: "heart.slash.fill")
-                                .frame(width: 50, height: 50)
-                                .foregroundColor(.red)
-                                .background(Color(UIColor.systemBackground))
-                                .clipShape(Circle())
-                                .shadow(color: Color(.systemGray), radius: 6, x: 0.0, y: 0.0)
-                        }
+                    ForEach(viewModel.pokemon) { pokemon in
                         
-                        Button(action: {
-                            viewModel.likePokemon()
-                        }) {
-                            Image(systemName: "heart.fill")
-                                .frame(width: 50, height: 50)
-                                .foregroundColor(.red)
-                                .background(Color(UIColor.systemBackground))
-                                .clipShape(Circle())
-                                .shadow(color: Color(.systemGray), radius: 6, x: 0.0, y: 0.0)
-                        }
+                        LargePokemonCell(pokemon: pokemon,
+                                         xPosition: $viewModel.xPosition,
+                                         likePokemon: viewModel.likePokemon,
+                                         dislikePokemon: viewModel.dislikePokemon)
+                            .offset(y: -60)
                     }
-                    .padding(.top, 30)
-                    .padding(.bottom, 10)
                 }
             }
         }

@@ -14,6 +14,7 @@ class PokemonVotingViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
+    @Published var xPosition: CGFloat = 0
     
     @Injected var networkInteractor: GetRandomPokemonInteractorType
     @Injected var pokemonsVotedInteractor: GetPokemonsVotedInteractorType
@@ -99,9 +100,11 @@ class PokemonVotingViewModel: ObservableObject {
     
     func likePokemon() {
         savePokemon(type: "LIKED")
+        self.xPosition = 0
     }
     
     func dislikePokemon() {
         savePokemon(type: "DISLIKED")
+        self.xPosition = 0
     }
 }

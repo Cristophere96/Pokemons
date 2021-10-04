@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Resolver
 @testable import PokemonApp
 
 class PokemonAppTests: XCTestCase {

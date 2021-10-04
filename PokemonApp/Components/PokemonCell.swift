@@ -54,7 +54,7 @@ struct PokemonCell: View {
                     }
                     .background(backgroundColor)
                     .cornerRadius(12)
-                    .shadow(color: backgroundColor, radius: 6, x: 0.0, y: 0.0)
+                    .shadow(color: backgroundColor, radius: 3, x: 0.0, y: 0.0)
                 })
         }
     }
