@@ -16,5 +16,7 @@ extension Resolver {
         defaultScope = .application
         Resolver.mock.register { GetRandomPokemonInteractorStub() }.implements(GetRandomPokemonInteractorType.self)
         Resolver.mock.register { GetPokemonsFromAGenerationInteractorStub() }.implements(GetPokemonsFromAGenerationInteractorType.self)
+        Resolver.mock.register { GetASinglePokemonInteractorStub() }.implements(GetASinglePokemonInteractorType.self)
+        Resolver.mock.register { GetPokemonsVotedInteractorStub() }.implements(GetPokemonsVotedInteractorType.self)
     }
 }

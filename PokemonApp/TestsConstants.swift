@@ -37,5 +37,10 @@ public struct TestsConstants {
         Pokemon(height: 11, id: 159, moves: mockedMoves, name: "croconaw", sprites: mockedSprites, types: mockedTypes, weight: 250),
         Pokemon(height: 23, id: 160, moves: mockedMoves, name: "feraligatr", sprites: mockedSprites, types: mockedTypes, weight: 888),
     ]
+    
+    static let mockPokemonsVoted: [DPokemonsVoted] = [
+        DPokemonsVoted(id: UUID(), url: "https://pokeapi.co/api/v2/pokemon/1", voteType: "LIKED"),
+        DPokemonsVoted(id: UUID(), url: "https://pokeapi.co/api/v2/pokemon/132", voteType: "DISLIKED")
+    ]
 
 }

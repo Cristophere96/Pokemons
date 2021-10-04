@@ -37,6 +37,7 @@ class PokemonViewModelTest: XCTestCase {
         
         if result == XCTWaiter.Result.timedOut {
             XCTAssertFalse(sut.pokemons.isEmpty)
+            XCTAssert(sut.pokemons.count ==  9)
             XCTAssertFalse(sut.isLoading)
         } else {
             XCTFail("test failed due to timeout")
@@ -47,7 +48,7 @@ class PokemonViewModelTest: XCTestCase {
         let expectation = XCTestExpectation(description: "shows error due to bad internet connection")
         
         getPokemonsFromAGenerationStub.responseHandler = .failure({
-            NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "The internet seems to be off"])
+            NSError(domain: "", code: 504, userInfo: [NSLocalizedDescriptionKey: "The internet seems to be off"])
         })
         sut.fetchPokemons()
         

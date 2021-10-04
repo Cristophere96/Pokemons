@@ -20,6 +20,9 @@ struct PokemonVotingView: View {
                     LoadingView()
                 } else {
                     Text("Swipe the pokemon card to the left if you dislike it or right if you like it")
+                        .font(.body)
+                        .fontWeight(.light)
+                        .offset(y: -80)
                     
                     ForEach(viewModel.pokemon) { pokemon in
                         
