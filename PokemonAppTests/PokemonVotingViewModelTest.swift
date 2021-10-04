@@ -11,6 +11,8 @@ import Resolver
 
 class PokemonVotingViewModelTest: XCTestCase {
     @LazyInjected var getRandomPokemonInteractorStub: GetRandomPokemonInteractorStub
+    @LazyInjected var getPokemonsVotedInteractorStub: GetPokemonsVotedInteractorStub
+    @LazyInjected var storePokemonInteractorStub: StorePokemonInteractorStub
     
     private var sut: PokemonVotingViewModel!
     
@@ -62,4 +64,106 @@ class PokemonVotingViewModelTest: XCTestCase {
             XCTFail("test fail due to time out")
         }
     }
+    
+    func test_StoreRandomPokemonWithLike_WhenIsSuccess() {
+        let expectation = XCTestExpectation(description: "Store the pokemon fetched to CoreData with voteType LIKED")
+        
+        getRandomPokemonInteractorStub.responseHandler = .success {
+            TestsConstants.mockedPokemon
+        }
+        getPokemonsVotedInteractorStub.responseHandler = .success {
+            TestsConstants.mockPokemonsVoted
+        }
+        storePokemonInteractorStub.responseHandler = .success {
+            true
+        }
+        sut.fetchRandomPokemon()
+        sut.likePokemon()
+        
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1.0)
+        
+        if result == XCTWaiter.Result.timedOut {
+            XCTAssertFalse(sut.showError)
+            XCTAssert(sut.errorMessage == "")
+        } else {
+            XCTFail("test failed due to timeout")
+        }
+    }
+    
+    func test_StoreRandomPokemonWithLike_WhenIsFailure() {
+        let expectation = XCTestExpectation(description: "Store the pokemon fetched to CoreData with voteType LIKED but an error happened")
+        
+        getRandomPokemonInteractorStub.responseHandler = .success {
+            TestsConstants.mockedPokemon
+        }
+        getPokemonsVotedInteractorStub.responseHandler = .success {
+            TestsConstants.mockPokemonsVoted
+        }
+        storePokemonInteractorStub.responseHandler = .failure({
+            NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "An error happened saving the pokemon to CoreData"])
+        })
+        sut.fetchRandomPokemon()
+        sut.likePokemon()
+        
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1.0)
+        
+        if result == XCTWaiter.Result.timedOut {
+            XCTAssertTrue(sut.showError)
+            XCTAssert(sut.errorMessage == "An error happened saving the pokemon to CoreData")
+        } else {
+            XCTFail("test failed due to timeout")
+        }
+    }
+    
+    func test_StoreRandomPokemonWithDislike_WhenIsSuccess() {
+        let expectation = XCTestExpectation(description: "Store the pokemon fetched to CoreData with voteType DISLIKED")
+        
+        getRandomPokemonInteractorStub.responseHandler = .success {
+            TestsConstants.mockedPokemon
+        }
+        getPokemonsVotedInteractorStub.responseHandler = .success {
+            TestsConstants.mockPokemonsVoted
+        }
+        storePokemonInteractorStub.responseHandler = .success {
+            true
+        }
+        sut.fetchRandomPokemon()
+        sut.likePokemon()
+        
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1.0)
+        
+        if result == XCTWaiter.Result.timedOut {
+            XCTAssertFalse(sut.showError)
+            XCTAssert(sut.errorMessage == "")
+        } else {
+            XCTFail("test failed due to timeout")
+        }
+    }
+    
+    func test_StoreRandomPokemonWithDislike_WhenIsFailure() {
+        let expectation = XCTestExpectation(description: "Store the pokemon fetched to CoreData with voteType DISLIKED but an error happened")
+        
+        getRandomPokemonInteractorStub.responseHandler = .success {
+            TestsConstants.mockedPokemon
+        }
+        getPokemonsVotedInteractorStub.responseHandler = .success {
+            TestsConstants.mockPokemonsVoted
+        }
+        storePokemonInteractorStub.responseHandler = .failure({
+            NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "An error happened saving the pokemon to CoreData"])
+        })
+        sut.fetchRandomPokemon()
+        sut.likePokemon()
+        
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1.0)
+        
+        if result == XCTWaiter.Result.timedOut {
+            XCTAssertTrue(sut.showError)
+            XCTAssert(sut.errorMessage == "An error happened saving the pokemon to CoreData")
+        } else {
+            XCTFail("test failed due to timeout")
+        }
+    }
+
+
 }
