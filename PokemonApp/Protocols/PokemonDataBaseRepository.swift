@@ -11,5 +11,5 @@ import Combine
 protocol PokemonDataBaseRepositoryType {
     func getAllPokemonsFromCoreData() -> AnyPublisher<[DPokemonsVoted], Error>?
     
-    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func savePokemonToCoreData(url: String, type: String) -> AnyPublisher<Bool, Error>?
 }

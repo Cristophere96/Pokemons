@@ -51,15 +51,19 @@ class PokemonVotingViewModel: ObservableObject {
     }
     
     func saveToCoreData(type: String) {
-        storePokemonInteractor.savePokemonToCoreData(url: "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)", type: type) { result in
-            switch result {
-            case .success(_):
-                self.fetchRandomPokemon()
-            case .failure(let error):
-                self.showError = true
-                self.errorMessage = error.localizedDescription
-            }
-        }
+        storePokemonInteractor.savePokemonToCoreData(url: "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)", type: type)?
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.showError = true
+                    self?.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { [weak self] _ in
+                self?.fetchRandomPokemon()
+            })
+            .store(in: &subscribers)
     }
     
     func savePokemon(type: String) {

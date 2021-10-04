@@ -50,6 +50,7 @@
 		B276F026270B871F00234832 /* GetPokemonsVotedInteractorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276F025270B871F00234832 /* GetPokemonsVotedInteractorStub.swift */; };
 		B276F028270B8B2100234832 /* GetASinglePokemonInteractorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276F027270B8B2100234832 /* GetASinglePokemonInteractorStub.swift */; };
 		B276F02A270B8DD000234832 /* PokemonsVotedViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276F029270B8DD000234832 /* PokemonsVotedViewModelTest.swift */; };
+		B276F02C270BA30100234832 /* StorePokemonInteractorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276F02B270BA30100234832 /* StorePokemonInteractorStub.swift */; };
 		B27E8AFE2705080E001B1793 /* PokemonApp+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E8AFD2705080E001B1793 /* PokemonApp+Injection.swift */; };
 		B27E8B00270508AE001B1793 /* GetPokemonsFromAGenerationInteractor+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E8AFF270508AE001B1793 /* GetPokemonsFromAGenerationInteractor+Injection.swift */; };
 		B27E8B0227050D8C001B1793 /* GetASinglePokemonInteractor+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27E8B0127050D8C001B1793 /* GetASinglePokemonInteractor+Injection.swift */; };
@@ -128,6 +129,7 @@
 		B276F025270B871F00234832 /* GetPokemonsVotedInteractorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPokemonsVotedInteractorStub.swift; sourceTree = "<group>"; };
 		B276F027270B8B2100234832 /* GetASinglePokemonInteractorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetASinglePokemonInteractorStub.swift; sourceTree = "<group>"; };
 		B276F029270B8DD000234832 /* PokemonsVotedViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsVotedViewModelTest.swift; sourceTree = "<group>"; };
+		B276F02B270BA30100234832 /* StorePokemonInteractorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePokemonInteractorStub.swift; sourceTree = "<group>"; };
 		B27E8AFD2705080E001B1793 /* PokemonApp+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonApp+Injection.swift"; sourceTree = "<group>"; };
 		B27E8AFF270508AE001B1793 /* GetPokemonsFromAGenerationInteractor+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GetPokemonsFromAGenerationInteractor+Injection.swift"; sourceTree = "<group>"; };
 		B27E8B0127050D8C001B1793 /* GetASinglePokemonInteractor+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GetASinglePokemonInteractor+Injection.swift"; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				B276F021270B4B1200234832 /* GetPokemonsFromAGenerationInteractorStub.swift */,
 				B276F025270B871F00234832 /* GetPokemonsVotedInteractorStub.swift */,
 				B276F027270B8B2100234832 /* GetASinglePokemonInteractorStub.swift */,
+				B276F02B270BA30100234832 /* StorePokemonInteractorStub.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				B276F026270B871F00234832 /* GetPokemonsVotedInteractorStub.swift in Sources */,
 				80B929FB2686BEE600C9EFF5 /* PokemonAppTests.swift in Sources */,
 				B276F024270B518200234832 /* PokemonViewModelTest.swift in Sources */,
+				B276F02C270BA30100234832 /* StorePokemonInteractorStub.swift in Sources */,
 				B21A11C527078D8F00888973 /* Resolver+Test.swift in Sources */,
 				B276F028270B8B2100234832 /* GetASinglePokemonInteractorStub.swift in Sources */,
 				B276F02A270B8DD000234832 /* PokemonsVotedViewModelTest.swift in Sources */,

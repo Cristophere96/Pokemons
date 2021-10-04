@@ -19,7 +19,9 @@ class CoreDataPokemonRepository: PokemonDataBaseRepositoryType {
             .eraseToAnyPublisher()
     }
     
-    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func savePokemonToCoreData(url: String, type: String) -> AnyPublisher<Bool, Error>? {
+        var publisher = CurrentValueSubject<Bool, Error>(false)
+        
         let viewContext = PersistenceController.shared.viewContext
         let new = PokemonsVoted(context: viewContext)
         new.id = UUID()
@@ -28,9 +30,11 @@ class CoreDataPokemonRepository: PokemonDataBaseRepositoryType {
         
         do {
             try viewContext.save()
-            completion(.success(true))
+            publisher = CurrentValueSubject<Bool, Error>(true)
         } catch {
-            completion(.failure(error))
+            publisher.send(completion: .failure(error))
         }
+        
+        return publisher.eraseToAnyPublisher()
     }
 }
