@@ -21,5 +21,6 @@ extension Resolver {
         Resolver.mock.register { StorePokemonInteractorStub() }.implements(StorePokemonInteractorType.self)
         Resolver.mock.register { APIPokemonRepositoryStub() }.implements(PokemonRepositoryType.self)
         Resolver.mock.register { CoreDataPokemonRepositoryStub() }.implements(PokemonDataBaseRepositoryType.self)
+        Resolver.mock.register { PokemonServiceStub() }.implements(PokemonServiceType.self)
     }
 }

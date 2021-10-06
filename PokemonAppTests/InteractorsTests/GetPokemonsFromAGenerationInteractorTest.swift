@@ -18,7 +18,6 @@ class GetPokemonsFromAGenerationInteractorTest: XCTestCase {
     override func setUp() {
         super.setUp()
         Resolver.registerMockService()
-        repositoryStub = APIPokemonRepositoryStub()
         sut = GetPokemonsFromAGenerationInteractor()
     }
     
