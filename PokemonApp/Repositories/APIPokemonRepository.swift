@@ -12,7 +12,7 @@ class APIPokemonRepository: PokemonRepositoryType {
     
     private var urlSession: URLSession
     
-    init(urlSession: URLSession) {
+    init(urlSession: URLSession) { 
         self.urlSession = urlSession
     }
     

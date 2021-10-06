@@ -21,8 +21,6 @@ class CoreDataPokemonRepository: PokemonDataBaseRepositoryType {
     
     func savePokemonToCoreData(url: String, type: String) -> AnyPublisher<Bool, Error>? {
         var publisher = CurrentValueSubject<Bool, Error>(false)
-        
-        let viewContext = PersistenceController.shared.viewContext
         let new = PokemonsVoted(context: viewContext)
         new.id = UUID()
         new.url = url
