@@ -19,21 +19,16 @@ struct PokemonVotingView: View {
                 if viewModel.isLoading {
                     LoadingView()
                 } else {
-                    Text("Swipe the pokemon card to the left if you dislike it or right if you like it")
-                        .font(.body)
-                        .fontWeight(.light)
-                        .offset(y: -80)
-                    
                     ForEach(viewModel.pokemon) { pokemon in
                         
                         LargePokemonCell(pokemon: pokemon,
                                          xPosition: $viewModel.xPosition,
                                          likePokemon: viewModel.likePokemon,
                                          dislikePokemon: viewModel.dislikePokemon)
-                            .offset(y: -60)
                     }
                 }
             }
+            .navigationBarHidden(true)
         }
     }
 }

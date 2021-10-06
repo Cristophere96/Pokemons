@@ -10,7 +10,7 @@ import Combine
 
 protocol PokemonRepositoryType {
     
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>?
+    func getPokemonsFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>?
     
     func getASinglePokemon(url: String) -> AnyPublisher<Pokemon, Error>
 

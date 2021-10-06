@@ -1,5 +1,5 @@
 //
-//  CoreDataPokemonRepositoryTest.swift
+//  GetPokemonsVotedInteractorTest.swift
 //  PokemonAppTests
 //
 //  Created by Cristopher Escorcia on 6/10/21.
@@ -7,15 +7,19 @@
 
 import XCTest
 import Combine
+import Resolver
 @testable import PokemonApp
 
-class CoreDataPokemonRepositoryTest: XCTestCase {
+class GetPokemonsVotedInteractorTest: XCTestCase {
+    @LazyInjected var repositoryStub: CoreDataPokemonRepositoryStub!
+    private var sut: GetPokemonsVotedInteractor!
     private var cancellable: AnyCancellable?
-    private var sut: CoreDataPokemonRepositoryStub!
     
     override func setUp() {
         super.setUp()
-        sut = CoreDataPokemonRepositoryStub()
+        Resolver.registerMockService()
+        repositoryStub = CoreDataPokemonRepositoryStub()
+        sut = GetPokemonsVotedInteractor()
     }
     
     override func tearDown() {
@@ -26,7 +30,7 @@ class CoreDataPokemonRepositoryTest: XCTestCase {
         super.tearDown()
     }
     
-    func test_repositoryGetPokemonsStoredInCoreData_WhenIsEmpty() {
+    func test_interactorGetPokemonsStoredInCoreData_WhenIsEmpty() {
         let expectationFailure = XCTestExpectation(description: "failure")
         let expectation = XCTestExpectation(description: "Gets the pokemons stored in local storage but is empty")
         expectationFailure.isInverted = true
@@ -47,7 +51,7 @@ class CoreDataPokemonRepositoryTest: XCTestCase {
         self.cancellable?.cancel()
     }
     
-    func test_repositoryGetPokemonsStoredInCoreData_WhenIsDataStored() {
+    func test_interactorGetPokemonsStoredInCoreData_WhenIsDataStored() {
         let expectationFailure = XCTestExpectation(description: "failure")
         let expectation = XCTestExpectation(description: "Gets the pokemons stored in local storage")
         expectationFailure.isInverted = true
@@ -69,7 +73,7 @@ class CoreDataPokemonRepositoryTest: XCTestCase {
         self.cancellable?.cancel()
     }
     
-    func test_repositoryGetPokemonsStoredInCoreData_WhenIsFailure() {
+    func test_interactorGetPokemonsStoredInCoreData_WhenIsFailure() {
         let expectationFailure = XCTestExpectation(description: "failure")
         let expectation = XCTestExpectation(description: "Gets the pokemons stored in local storage")
         expectation.isInverted = true
@@ -81,48 +85,6 @@ class CoreDataPokemonRepositoryTest: XCTestCase {
                 guard case .failure(let error) = completion else { return        XCTFail("completion is not failure")
                 }
                 XCTAssertEqual(error.localizedDescription, "Can't access CoreData right now")
-                expectationFailure.fulfill()
-            }, receiveValue: { _ in
-                expectation.fulfill()
-            })
-        
-        self.wait(for: [expectation, expectationFailure], timeout: 1.0)
-        self.cancellable?.cancel()
-    }
-    
-    func test_repositoryStorePokemonInCoreData_WhenIsSuccess() {
-        let expectationFailure = XCTestExpectation(description: "failure")
-        let expectation = XCTestExpectation(description: "Store a Pokemon in local storage")
-        expectationFailure.isInverted = true
-        
-        CoreDataPokemonRepositoryStub.response = true
-        
-        self.cancellable = sut.savePokemonToCoreData(url: "https://pokeapi.co/api/v2/pokemon/155", type: "LIKED")?
-            .sink(receiveCompletion: { completion in
-                guard case .failure(let error) = completion else { return }
-                XCTFail(error.localizedDescription)
-                expectationFailure.fulfill()
-            }, receiveValue: { result in
-                XCTAssertTrue(result)
-                expectation.fulfill()
-            })
-        
-        self.wait(for: [expectation, expectationFailure], timeout: 1.0)
-        self.cancellable?.cancel()
-    }
-    
-    func test_repositoryStorePokemonInCoreData_WhenIsFailure() {
-        let expectationFailure = XCTestExpectation(description: "failure")
-        let expectation = XCTestExpectation(description: "Store a Pokemon in local storage")
-        expectation.isInverted = true
-        
-        CoreDataPokemonRepositoryStub.error = NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "Couldn't save to CoreData right now"])
-        
-        self.cancellable = sut.savePokemonToCoreData(url: "https://pokeapi.co/api/v2/pokemon/155", type: "LIKED")?
-            .sink(receiveCompletion: { completion in
-                guard case .failure(let error) = completion else { return        XCTFail("completion is not failure")
-                }
-                XCTAssertEqual(error.localizedDescription, "Couldn't save to CoreData right now")
                 expectationFailure.fulfill()
             }, receiveValue: { _ in
                 expectation.fulfill()

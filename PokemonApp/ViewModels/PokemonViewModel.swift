@@ -32,7 +32,7 @@ class PokemonViewModel: ObservableObject {
         self.showError = false
         self.errorMessage = ""
         
-        getPokemonFromAGenerationInteractor.getPokemonsURLFromAGeneration(limit: limit, offset: offset)?
+        getPokemonFromAGenerationInteractor.getPokemonsFromAGeneration(limit: limit, offset: offset)?
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:

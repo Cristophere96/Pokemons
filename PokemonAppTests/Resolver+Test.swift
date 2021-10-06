@@ -19,5 +19,7 @@ extension Resolver {
         Resolver.mock.register { GetASinglePokemonInteractorStub() }.implements(GetASinglePokemonInteractorType.self)
         Resolver.mock.register { GetPokemonsVotedInteractorStub() }.implements(GetPokemonsVotedInteractorType.self)
         Resolver.mock.register { StorePokemonInteractorStub() }.implements(StorePokemonInteractorType.self)
+        Resolver.mock.register { APIPokemonRepositoryStub() }.implements(PokemonRepositoryType.self)
+        Resolver.mock.register { CoreDataPokemonRepositoryStub() }.implements(PokemonDataBaseRepositoryType.self)
     }
 }

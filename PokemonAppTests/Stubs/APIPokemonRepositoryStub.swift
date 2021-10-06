@@ -15,7 +15,7 @@ final class APIPokemonRepositoryStub {
 }
 
 extension APIPokemonRepositoryStub: PokemonRepositoryType {
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
+    func getPokemonsFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
         let data = APIPokemonRepositoryStub.response ?? TestsConstants.mockedPokemons
         let publisher = CurrentValueSubject<[Pokemon], Error>(data as? [Pokemon] ?? TestsConstants.mockedPokemons)
         

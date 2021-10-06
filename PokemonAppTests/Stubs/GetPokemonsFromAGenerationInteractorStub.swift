@@ -18,7 +18,7 @@ final class GetPokemonsFromAGenerationInteractorStub: GetPokemonsFromAGeneration
     var responseHandler: InteractorStubCase<Any> = .success({})
     
     
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
+    func getPokemonsFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
         let objects = TestsConstants.mockedPokemons
         
         var publisher = CurrentValueSubject<[Pokemon], Error>(objects)

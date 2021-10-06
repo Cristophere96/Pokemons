@@ -16,7 +16,7 @@ class APIPokemonRepository: PokemonRepositoryType {
         self.urlSession = urlSession
     }
     
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
+    func getPokemonsFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
         guard let url = URL(string: "\(Constants.urlsName.pokemonURLBase)?limit=\(limit)&offset=\(offset)") else { return nil }
         
         return urlSession.dataTaskPublisher(for: url)

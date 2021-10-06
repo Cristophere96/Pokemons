@@ -10,7 +10,7 @@ import Combine
 import Resolver
 
 protocol GetPokemonsFromAGenerationInteractorType {
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>?
+    func getPokemonsFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>?
 }
 
 class GetPokemonsFromAGenerationInteractor: GetPokemonsFromAGenerationInteractorType {
@@ -18,6 +18,6 @@ class GetPokemonsFromAGenerationInteractor: GetPokemonsFromAGenerationInteractor
     
     init() {  }
     
-    func getPokemonsURLFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
-        return self.repository.getPokemonsURLFromAGeneration(limit: limit, offset: offset)
+    func getPokemonsFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>? {
+        return self.repository.getPokemonsFromAGeneration(limit: limit, offset: offset)
     }}
