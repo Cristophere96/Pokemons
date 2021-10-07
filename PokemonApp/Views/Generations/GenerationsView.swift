@@ -15,7 +15,6 @@ struct GenerationsView: View {
                 ScrollView {
                     LazyVGrid(columns: Constants.gridItems, spacing: 16 ) {
                         GenerationCell(title: "Generation 1", image: "first_gen", limit: 151, offset: 0)
-                            .accessibilityIdentifier("FirstGen")
                         
                         GenerationCell(title: "Generation 2", image: "second_gen", limit: 100, offset: 151)
                         

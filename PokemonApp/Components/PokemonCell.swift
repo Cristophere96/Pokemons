@@ -20,7 +20,7 @@ struct PokemonCell: View {
     }
     
     var body: some View {
-        ZStack {
+        Button(action: {}, label: {
             NavigationLink(
                 destination: PokemonDetail(pokemon: pokemon),
                 label: {
@@ -55,7 +55,9 @@ struct PokemonCell: View {
                     .background(backgroundColor)
                     .cornerRadius(12)
                     .shadow(color: backgroundColor, radius: 3, x: 0.0, y: 0.0)
-                })
-        }
+                }
+            )
+        })
+        .accessibilityIdentifier("Pokemon#\(pokemon.id)")
     }
 }

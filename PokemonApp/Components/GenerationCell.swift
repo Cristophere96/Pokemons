@@ -14,28 +14,27 @@ struct GenerationCell: View {
     let offset: Int
     
     var body: some View {
-        ZStack {
+        Button(action: {}, label: {
             NavigationLink(
                 destination: PokemonsView(limit: limit, offset: offset, title: title),
                 label: {
-                    ZStack {
-                        VStack {
-                            Text(title)
-                                .font(.headline)
-                                .foregroundColor(Color(.label))
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                            
-                            Image(image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: UIScreen.main.bounds.width * 0.4, height: 90)
-                                .padding([.bottom, .trailing], 4)
-                        }
+                    VStack {
+                        Text(title)
+                            .font(.headline)
+                            .foregroundColor(Color(.label))
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                        
+                        Image(image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: UIScreen.main.bounds.width * 0.4, height: 90)
+                            .padding([.bottom, .trailing], 4)
                     }
                 }
             )
-        }
+        })
+        .accessibilityIdentifier(image)
     }
 }
 
