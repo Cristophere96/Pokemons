@@ -19,12 +19,25 @@ struct PokemonVotingView: View {
                 if viewModel.isLoading {
                     LoadingView()
                 } else {
-                    ForEach(viewModel.pokemon) { pokemon in
+                    VStack(spacing: 20) {
+                        VStack {
+                            Text("To vote, swipe left ← if you dislike the pokemon or right → if you like it")
+                                .font(.body)
+                                .fontWeight(.semibold)
+                                .padding()
+                        }
+                        .frame(height: 75)
+                        .background(Color("background").opacity(0.08))
+                        .cornerRadius(8)
                         
-                        LargePokemonCell(pokemon: pokemon,
-                                         xPosition: $viewModel.xPosition,
-                                         likePokemon: viewModel.likePokemon,
-                                         dislikePokemon: viewModel.dislikePokemon)
+                        ForEach(viewModel.pokemon) { pokemon in
+                            
+                            LargePokemonCell(pokemon: pokemon,
+                                             xPosition: $viewModel.xPosition,
+                                             degree: $viewModel.degree,
+                                             likePokemon: viewModel.likePokemon,
+                                             dislikePokemon: viewModel.dislikePokemon)
+                        }
                     }
                 }
             }

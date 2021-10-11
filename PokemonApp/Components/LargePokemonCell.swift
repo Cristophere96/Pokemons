@@ -11,6 +11,7 @@ import Kingfisher
 struct LargePokemonCell: View {
     var pokemon: Pokemon
     @Binding var xPosition: CGFloat
+    @Binding var degree: Double
     var likePokemon: () -> Void
     var dislikePokemon: () -> Void
     
@@ -49,10 +50,16 @@ struct LargePokemonCell: View {
                 .cornerRadius(12)
                 .shadow(color: Color(Utils.backgroundColor(forType: pokemon.types[0].type.name)), radius: 6, x: 0.0, y: 0.0)
                 .offset(x: xPosition)
+                .rotationEffect(.degrees(degree))
                 .gesture(
                     DragGesture()
                         .onChanged({ (value) in
                             xPosition = value.translation.width
+                            if value.translation.width > 0 {
+                                degree = 1
+                            } else {
+                                degree = -1
+                            }
                         })
                         .onEnded({ (value) in
                             if value.translation.width > 0 {
@@ -60,12 +67,14 @@ struct LargePokemonCell: View {
                                     likePokemon()
                                 } else {
                                     xPosition = 0
+                                    degree = 0
                                 }
                             } else {
                                 if value.translation.width < -100 {
                                     dislikePokemon()
                                 } else {
                                     xPosition = 0
+                                    degree = 0
                                 }
                             }
                         })

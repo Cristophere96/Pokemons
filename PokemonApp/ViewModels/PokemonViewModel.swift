@@ -24,7 +24,6 @@ class PokemonViewModel: ObservableObject {
     init(limit: Int, offset: Int) {
         self.limit = limit
         self.offset = offset
-        fetchPokemons()
     }
     
     func fetchPokemons() {
