@@ -10,7 +10,7 @@ import Combine
 import Resolver
 
 protocol StorePokemonInteractorType {
-    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func savePokemonToCoreData(url: String, type: String) -> AnyPublisher<Bool, Error>?
 }
 
 class StorePokemonInteractor: StorePokemonInteractorType {
@@ -18,7 +18,7 @@ class StorePokemonInteractor: StorePokemonInteractorType {
     
     init() {  }
     
-    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        self.repository.savePokemonToCoreData(url: url, type: type, completion: completion)
+    func savePokemonToCoreData(url: String, type: String) -> AnyPublisher<Bool, Error>? {
+        self.repository.savePokemonToCoreData(url: url, type: type)
     }
 }

@@ -14,6 +14,8 @@ class PokemonVotingViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
+    @Published var xPosition: CGFloat = 0
+    @Published var degree: Double = 0.0
     
     @Injected var networkInteractor: GetRandomPokemonInteractorType
     @Injected var pokemonsVotedInteractor: GetPokemonsVotedInteractorType
@@ -50,15 +52,19 @@ class PokemonVotingViewModel: ObservableObject {
     }
     
     func saveToCoreData(type: String) {
-        storePokemonInteractor.savePokemonToCoreData(url: "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)", type: type) { result in
-            switch result {
-            case .success(_):
-                self.fetchRandomPokemon()
-            case .failure(let error):
-                self.showError = true
-                self.errorMessage = error.localizedDescription
-            }
-        }
+        storePokemonInteractor.savePokemonToCoreData(url: "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)", type: type)?
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.showError = true
+                    self?.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { [weak self] _ in
+                self?.fetchRandomPokemon()
+            })
+            .store(in: &subscribers)
     }
     
     func savePokemon(type: String) {
@@ -99,9 +105,13 @@ class PokemonVotingViewModel: ObservableObject {
     
     func likePokemon() {
         savePokemon(type: "LIKED")
+        self.xPosition = 0
+        self.degree = 0
     }
     
     func dislikePokemon() {
         savePokemon(type: "DISLIKED")
+        self.xPosition = 0
+        self.degree = 0
     }
 }

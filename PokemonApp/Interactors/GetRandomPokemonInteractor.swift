@@ -19,7 +19,7 @@ class GetRandomPokemonInteractor: GetRandomPokemonInteractorType {
     init() {  }
     
     func getRandomPokemon() -> AnyPublisher<Pokemon, Error>? {
-        let randomNumber = Int.random(in: 1..<894)
+         let randomNumber = Int.random(in: 1..<894)
         let url = "\(Constants.urlsName.pokemonURLBase)/\(randomNumber)"
         
         return self.repository.getRandomPokemon(url: url)

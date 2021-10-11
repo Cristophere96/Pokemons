@@ -24,7 +24,6 @@ class PokemonViewModel: ObservableObject {
     init(limit: Int, offset: Int) {
         self.limit = limit
         self.offset = offset
-        fetchPokemons()
     }
     
     func fetchPokemons() {
@@ -32,12 +31,13 @@ class PokemonViewModel: ObservableObject {
         self.showError = false
         self.errorMessage = ""
         
-        getPokemonFromAGenerationInteractor.getPokemonsURLFromAGeneration(limit: limit, offset: offset)?
+        getPokemonFromAGenerationInteractor.getPokemonsFromAGeneration(limit: limit, offset: offset)?
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
+                    self?.pokemons = []
                     self?.isLoading = false
                     self?.showError = true
                     self?.errorMessage = error.localizedDescription

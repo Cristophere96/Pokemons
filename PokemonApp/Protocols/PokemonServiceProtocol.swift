@@ -1,14 +1,14 @@
 //
-//  PokemonRepository.swift
+//  PokemonService.swift
 //  PokemonApp
 //
-//  Created by Cristopher Escorcia on 21/09/21.
+//  Created by Cristopher Escorcia on 6/10/21.
 //
 
 import SwiftUI
 import Combine
 
-protocol PokemonRepositoryType {
+protocol PokemonServiceType {
     
     func getPokemonsFromAGeneration(limit: Int, offset: Int) -> AnyPublisher<[Pokemon], Error>?
     

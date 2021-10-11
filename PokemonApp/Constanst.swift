@@ -17,5 +17,11 @@ public struct Constants {
         case DISLIKED = "DISLIKED"
     }
     
+    enum DetailOptions: String, CaseIterable {
+        case GENERAL = "General"
+        case STATS = "Stats"
+        case MOVES = "Moves"
+    }
+    
     static let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
 }

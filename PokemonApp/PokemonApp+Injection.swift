@@ -15,6 +15,8 @@ extension Resolver: ResolverRegistering {
         registerGetRandomPokemon()
         registerGetPokemondsVoted()
         registerStorePokemon()
+        registerAPIPokemonRepository()
+        registerCoreDataPokemonRepository()
     }
 }
 

@@ -25,6 +25,7 @@ struct Pokemon: Decodable, Identifiable {
     let sprites: Sprites
     let types: [TypeElement]
     let weight: Int
+    let stats: [Stat]
 }
 
 struct Species: Decodable {
@@ -43,9 +44,37 @@ struct Move: Decodable {
 
 struct Sprites: Decodable {
     let front_default: String
+    let other: Other?
 }
 
 struct TypeElement: Decodable {
     let slot: Int
     let type: Species
+}
+
+struct Stat: Decodable {
+    let baseStat: Int
+    let effort: Int
+    let stat: Species
+    
+    enum CodingKeys: String, CodingKey {
+        case baseStat = "base_stat"
+        case effort, stat
+    }
+}
+
+struct Other: Decodable {
+    let officialArtwork: OfficialArtwork
+    
+    enum CodingKeys: String, CodingKey {
+        case officialArtwork = "official-artwork"
+    }
+}
+
+struct OfficialArtwork: Decodable {
+    let frontDefault: String
+    
+    enum CodingKeys: String, CodingKey {
+        case frontDefault = "front_default"
+    }
 }

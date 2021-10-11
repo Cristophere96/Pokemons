@@ -40,6 +40,9 @@ struct PokemonsView: View {
                           errorMessage: viewModel.errorMessage)
             }
         }
+        .onAppear() {
+            viewModel.fetchPokemons()
+        }
     }
 }
 

@@ -11,20 +11,17 @@ import Kingfisher
 struct PokemonDetail: View {
     let pokemon: Pokemon
     let color: Color
-    let pokemonWeight: String
-    let pokemonHeight: String
+    @State var selected: Constants.DetailOptions = .GENERAL
     
     init(pokemon: Pokemon) {
         self.pokemon = pokemon
         self.color = Color(Utils.backgroundColor(forType: pokemon.types[0].type.name))
-        self.pokemonWeight = Utils.parseWeigthAndHeigth(forValue: pokemon.weight)
-        self.pokemonHeight = Utils.parseWeigthAndHeigth(forValue: pokemon.height)
     }
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .center, spacing: 20) {
-                KFImage(URL(string: pokemon.sprites.front_default))
+                KFImage(URL(string: pokemon.sprites.other?.officialArtwork.frontDefault ?? pokemon.sprites.front_default))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
@@ -40,61 +37,21 @@ struct PokemonDetail: View {
                         .fontWeight(.heavy)
                         .foregroundColor(color)
                     
-                    Text("Types")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(.label))
-                    
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(pokemon.types, id: \.slot) { type in
-                                Text(type.type.name.capitalized)
-                                    .font(.subheadline)
-                                    .foregroundColor(Color(.label))
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 24)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(
-                                                Color(
-                                                    Utils.backgroundColor(forType: type.type.name)
-                                                ).opacity(0.25))
-                                    )                            }
+                    Picker("choose the type", selection: $selected) {
+                        ForEach(Constants.DetailOptions.allCases, id: \.self) {
+                            Text($0.rawValue.capitalized)
                         }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
                     
-                    Text("More Info about " + pokemon.name.capitalized)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(.label))
-                    HStack {
-                        Text("Weigth: \(pokemonWeight) kg")
-                            .font(.headline)
-                            .foregroundColor(Color(.label))
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                        
-                        Text("Heigth: \(pokemonHeight) m")
-                            .font(.headline)
-                            .foregroundColor(Color(.label))
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                    }
-                    
-                    Text("List of moves")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(.label))
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 10) {
-                            ForEach(pokemon.moves.prefix(5), id: \.move.name) { move in
-                                Text(move.move.name)
-                                    .font(.subheadline)
-                                    .foregroundColor(Color(.label))
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)                                    
-                            }
-                        }
+                    switch selected {
+                    case .GENERAL:
+                        PokemonGeneralInfo(pokemon: pokemon)
+                    case .MOVES:
+                        PokemonMoves(pokemon: pokemon)
+                    case .STATS:
+                        PokemonStats(stats: pokemon.stats)
                     }
                 }
                 .padding(.horizontal, 20)

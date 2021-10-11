@@ -12,8 +12,8 @@ import Resolver
 class PokemonsVotedViewModel: ObservableObject {
     private var pokemonsVoted: [DPokemonsVoted] = []
     
-    @Published var pokemonsLiked = [Pokemon]()
-    @Published var pokemondsDisliked = [Pokemon]()
+    @Published var pokemonsLiked: [Pokemon] = []
+    @Published var pokemondsDisliked: [Pokemon] = []
     @Published var isLoading: Bool = false
     @Published var isEmpty: Bool = false
     @Published var showError: Bool = false
@@ -53,6 +53,8 @@ class PokemonsVotedViewModel: ObservableObject {
         self.errorMessage = ""
         if pokemonsVoted.isEmpty {
             self.isEmpty = true
+            self.pokemonsLiked = []
+            self.pokemondsDisliked = []
         } else {
             self.isEmpty = false
             self.isLoading = true

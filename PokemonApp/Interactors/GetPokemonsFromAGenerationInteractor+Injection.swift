@@ -14,7 +14,7 @@ extension Resolver {
             return GetPokemonsFromAGenerationInteractor()
         }
         register(PokemonRepositoryType.self) { _ in
-            return APIPokemonRepository(urlSession: URLSession.shared)
+            return APIPokemonRepository()
         }
     }
 }

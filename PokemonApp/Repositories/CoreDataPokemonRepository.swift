@@ -7,30 +7,18 @@
 
 import SwiftUI
 import Combine
+import Resolver
 
 class CoreDataPokemonRepository: PokemonDataBaseRepositoryType {
-    private let viewContext = PersistenceController.shared.viewContext
+    @Injected var service: CoreDataServiceType
+    
+    init() {  }
     
     func getAllPokemonsFromCoreData() -> AnyPublisher<[DPokemonsVoted], Error>? {
-        return CoreDataManagerPublisher(request: PokemonsVoted.fetchRequest(), context: viewContext)
-            .subscribe(on: DispatchQueue.global(qos: .background))
-            .receive(on: DispatchQueue.main)
-            .map { $0.map{ DPokemonsVoted(id: $0.id, url: $0.url, voteType: $0.voteType) } }
-            .eraseToAnyPublisher()
+        return service.getAllPokemonsFromCoreData()
     }
     
-    func savePokemonToCoreData(url: String, type: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let viewContext = PersistenceController.shared.viewContext
-        let new = PokemonsVoted(context: viewContext)
-        new.id = UUID()
-        new.url = url
-        new.voteType = type
-        
-        do {
-            try viewContext.save()
-            completion(.success(true))
-        } catch {
-            completion(.failure(error))
-        }
+    func savePokemonToCoreData(url: String, type: String) -> AnyPublisher<Bool, Error>? {
+        return service.savePokemonToCoreData(url: url, type: type)
     }
 }
