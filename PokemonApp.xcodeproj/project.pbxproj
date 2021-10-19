@@ -79,6 +79,8 @@
 		B2A1D5E8270DE5A1003756AF /* CoreDataPokemonRepositoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A1D5E7270DE5A1003756AF /* CoreDataPokemonRepositoryStub.swift */; };
 		B2C2B33C27049D5F00E7FFF9 /* StorePokemonInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C2B33B27049D5F00E7FFF9 /* StorePokemonInteractor.swift */; };
 		B2C2B33F2704BB4A00E7FFF9 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B2C2B33E2704BB4A00E7FFF9 /* Resolver */; };
+		B2D7DA0E2718CA6800F340D3 /* PokemonSmallImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D7DA0D2718CA6800F340D3 /* PokemonSmallImage.swift */; };
+		B2D7DA102718E4ED00F340D3 /* PokemonLargeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D7DA0F2718E4ED00F340D3 /* PokemonLargeImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +177,8 @@
 		B27F457126FA8365008F8380 /* APIPokemonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPokemonRepository.swift; sourceTree = "<group>"; };
 		B2A1D5E7270DE5A1003756AF /* CoreDataPokemonRepositoryStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPokemonRepositoryStub.swift; sourceTree = "<group>"; };
 		B2C2B33B27049D5F00E7FFF9 /* StorePokemonInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePokemonInteractor.swift; sourceTree = "<group>"; };
+		B2D7DA0D2718CA6800F340D3 /* PokemonSmallImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSmallImage.swift; sourceTree = "<group>"; };
+		B2D7DA0F2718E4ED00F340D3 /* PokemonLargeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLargeImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +385,8 @@
 				B252DEED270FB436007EBC39 /* PokemonGeneralInfo.swift */,
 				B252DEEF270FB516007EBC39 /* PokemonMoves.swift */,
 				B23CB03327109359006CB458 /* PokemonStats.swift */,
+				B2D7DA0D2718CA6800F340D3 /* PokemonSmallImage.swift */,
+				B2D7DA0F2718E4ED00F340D3 /* PokemonLargeImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 				B27E8B06270513F7001B1793 /* GetPokemonsVotedInteractor+Injection.swift in Sources */,
 				806333172687AB4C00ABB5A8 /* LoadingView.swift in Sources */,
 				B2C2B33C27049D5F00E7FFF9 /* StorePokemonInteractor.swift in Sources */,
+				B2D7DA102718E4ED00F340D3 /* PokemonLargeImage.swift in Sources */,
 				80B92A172686BF7000C9EFF5 /* PokemonCell.swift in Sources */,
 				B224414726FBCAEF00A270BF /* CoreDataPokemonRepository.swift in Sources */,
 				B27E8B0227050D8C001B1793 /* GetASinglePokemonInteractor+Injection.swift in Sources */,
@@ -618,6 +625,7 @@
 				B224414526FBCA5700A270BF /* PokemonDataBaseRepository.swift in Sources */,
 				B26D2220270E60E6004CF9AD /* CoreDataServiceProtocol.swift in Sources */,
 				802F614D268A9FB900B066E5 /* PokemonVotingView.swift in Sources */,
+				B2D7DA0E2718CA6800F340D3 /* PokemonSmallImage.swift in Sources */,
 				B231EDBC27035915000BD8E0 /* DPokemonsVoted.swift in Sources */,
 				B27F457226FA8365008F8380 /* APIPokemonRepository.swift in Sources */,
 				B231EDC32703CA5D000BD8E0 /* GetSinglePokemonInteractor.swift in Sources */,
@@ -729,7 +737,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -784,7 +792,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -898,7 +906,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = PokemonApp;
 			};
 			name = Debug;
@@ -919,7 +927,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = PokemonApp;
 			};
 			name = Release;

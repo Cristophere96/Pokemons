@@ -21,11 +21,7 @@ struct PokemonDetail: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .center, spacing: 20) {
-                KFImage(URL(string: pokemon.sprites.other?.officialArtwork.frontDefault ?? pokemon.sprites.front_default))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150, height: 150)
-                    .padding([.bottom, .trailing], 4)
+                PokemonLargeImage(imageURL: pokemon.sprites.other?.officialArtwork.frontDefault ?? pokemon.sprites.front_default)
                 
                 VStack (alignment: .leading, spacing: 20) {
                     Text(pokemon.name.capitalized)
@@ -55,7 +51,6 @@ struct PokemonDetail: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .frame(maxWidth: 640, alignment: .center)
             }
         }
     }

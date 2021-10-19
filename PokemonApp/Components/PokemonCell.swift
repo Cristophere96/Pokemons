@@ -44,9 +44,7 @@ struct PokemonCell: View {
                                 )
                                 .frame(width: UIScreen.main.bounds.width * 0.210, height: 24)
                             
-                            KFImage(URL(string: pokemon.sprites.front_default))
-                                .frame(width: UIScreen.main.bounds.width * 0.22, height: UIScreen.main.bounds.width * 0.22)
-                                .padding(.bottom, 8)
+                            PokemonSmallImage(imageURL: pokemon.sprites.front_default)
                         }
                         .padding(.horizontal, 4)
                     }

@@ -32,7 +32,7 @@ struct PokemonStats: View {
                         )
                         .frame(width: 100, height: 15)
                     if stat.baseStat > 100 {
-                        Spacer()
+                        Spacer(minLength: CGFloat(100 - stat.baseStat))
                     }
                     Text("\(stat.baseStat)")
                 }
