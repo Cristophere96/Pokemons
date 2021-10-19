@@ -52,6 +52,7 @@ struct PokemonsVotedView: View {
                 viewModel.fetchPokemons()
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

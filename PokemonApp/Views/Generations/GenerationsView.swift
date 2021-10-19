@@ -35,6 +35,7 @@ struct GenerationsView: View {
                     .navigationTitle("Pokedex")
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
