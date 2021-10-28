@@ -31,12 +31,22 @@ struct PokemonVotingView: View {
                         .cornerRadius(8)
                         
                         ForEach(viewModel.pokemon) { pokemon in
-                            
-                            LargePokemonCell(pokemon: pokemon,
-                                             xPosition: $viewModel.xPosition,
-                                             degree: $viewModel.degree,
-                                             likePokemon: viewModel.likePokemon,
-                                             dislikePokemon: viewModel.dislikePokemon)
+                            ZStack {
+                                LargePokemonCell(pokemon: pokemon,
+                                                 xPosition: $viewModel.xPosition,
+                                                 degree: $viewModel.degree,
+                                                 likePokemon: viewModel.likePokemon,
+                                                 dislikePokemon: viewModel.dislikePokemon)
+                                
+                                if viewModel.showAnimation {
+                                    VStack {
+                                        LottieView(fileName: viewModel.animationName)
+                                            .frame(width: 200, height: 200)
+                                            .background(Color.black.opacity(0.5))
+                                            .cornerRadius(10)
+                                    }
+                                }
+                            }
                         }
                     }
                 }

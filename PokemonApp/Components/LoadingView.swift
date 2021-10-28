@@ -9,13 +9,9 @@ import SwiftUI
 
 struct LoadingView: View {
     var body: some View {
-        ZStack {
-            Color(.systemBackground).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            
-            ProgressView()
-                .offset(y: -40.0)
-                .progressViewStyle(CircularProgressViewStyle(tint: .red))
-                .scaleEffect(2)
+        VStack {
+            LottieView(fileName: "loading")
+                .frame(width: 200, height: 200)
         }
     }
 }

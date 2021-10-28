@@ -59,7 +59,8 @@ class APIPokemonRepositoryTest: XCTestCase {
         
         self.cancellable = sut.getPokemonsFromAGeneration(limit: 9, offset: 151)?
             .sink(receiveCompletion: { completion in
-            guard case .failure(let error) = completion else { return        XCTFail("completion is not failure")
+            guard case .failure(let error) = completion else { return
+                XCTFail("completion is not failure")
             }
                 XCTAssertEqual(error.localizedDescription, "Bad request")
                 expectationFailure.fulfill()

@@ -13,6 +13,8 @@ class PokemonVotingViewModel: ObservableObject {
     @Published var pokemon : [Pokemon] = []
     @Published var isLoading: Bool = false
     @Published var showError: Bool = false
+    @Published var showAnimation: Bool = false
+    @Published var animationName: String = ""
     @Published var errorMessage: String = ""
     @Published var xPosition: CGFloat = 0
     @Published var degree: Double = 0.0
@@ -27,6 +29,8 @@ class PokemonVotingViewModel: ObservableObject {
     }
     
     func fetchRandomPokemon() {
+        self.animationName = ""
+        self.showAnimation = false
         self.isLoading = true
         self.showError = false
         self.errorMessage = ""
@@ -43,7 +47,7 @@ class PokemonVotingViewModel: ObservableObject {
                     self?.errorMessage = error.localizedDescription
                 }
             } receiveValue: { [weak self] pokemon in
-                withAnimation(.easeInOut) { 
+                withAnimation(.easeInOut) {
                     self?.pokemon = [pokemon]
                 }
                 self?.isLoading = false
@@ -62,7 +66,13 @@ class PokemonVotingViewModel: ObservableObject {
                     self?.errorMessage = error.localizedDescription
                 }
             }, receiveValue: { [weak self] _ in
-                self?.fetchRandomPokemon()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    withAnimation {
+                        self?.showAnimation = false
+                        self?.animationName = ""
+                        self?.fetchRandomPokemon()
+                    }
+                }
             })
             .store(in: &subscribers)
     }
@@ -91,7 +101,7 @@ class PokemonVotingViewModel: ObservableObject {
             var exist: Bool = false
             for item in pokemonsVoted {
                 if item.url == "\(Constants.urlsName.pokemonURLBase)/\(pokemon[0].id)" {
-                   exist = true
+                    exist = true
                 }
             }
             
@@ -107,11 +117,15 @@ class PokemonVotingViewModel: ObservableObject {
         savePokemon(type: "LIKED")
         self.xPosition = 0
         self.degree = 0
+        self.animationName = "like"
+        self.showAnimation = true
     }
     
     func dislikePokemon() {
         savePokemon(type: "DISLIKED")
         self.xPosition = 0
         self.degree = 0
+        self.animationName = "dislike"
+        self.showAnimation = true
     }
 }
