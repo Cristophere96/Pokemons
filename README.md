@@ -19,6 +19,6 @@ The app is built using MVVM, Repository pattern, Clean architecture, Dependency 
 
 ![Imgur](https://i.imgur.com/MendyvIm.jpg)
 ![Imgur](https://i.imgur.com/y8TNniKm.jpg)
-![Imgur](https://i.imgur.com/chRNNUCm.jpg)
+![Imgur](https://i.imgur.com/chRNNUCm.jpg)\
 ![Imgur](https://i.imgur.com/LUjPt7Fm.jpg)
 ![Imgur](https://i.imgur.com/5H02YNmm.jpg)
